@@ -61,24 +61,24 @@ public class AdminController {
 //	      String myAttribute = (String) session.getAttribute("user");
 //	      System.out.println( myAttribute );
 //		
-	  String encode =	passwordEncoder().encode(admin.getPassword());
-		
-	  System.out.println("Admin = "+encode );
+//	  String encode =	passwordEncoder().encode(admin.getPassword());
+//		
+//	  System.out.println("Admin = "+encode );
 //	  assertTrue(passwordEncoder().matches(encode, encode)); /
 	  
-//		Boolean status  = false;
-//		Admin ad = (Admin) repo.findByUsernameAndPassword(admin.getUsername(), admin.getPassword());
-//		if(ad != null) {
-//			System.out.println("Admin = "+ad.getUsername()+" "+ad.getPassword());
-//			status = true;
-//			session.setAttribute("session", ad.getId());
-//			model.addAttribute("status",status);
-//			return "redirect:/admin/addmovies";
-//		}else {
-//			System.out.println("null");
-//			model.addAttribute("status",status);
+		Boolean status  = false;
+		Admin ad = (Admin) repo.findByUsernameAndPassword(admin.getUsername(), admin.getPassword());
+		if(ad != null) {
+			System.out.println("Admin = "+ad.getUsername()+" "+ad.getPassword());
+			status = true;
+			session.setAttribute("session", ad.getId());
+			model.addAttribute("status",status);
+			return "redirect:/admin/addmovies";
+		}else {
+			System.out.println("null");
+			model.addAttribute("status",status);
 			return "redirect:/admin/login";
-//		}
+		}
 //		
 	
 	}
@@ -89,7 +89,7 @@ public class AdminController {
 //	      System.out.println( myAttribute );
 
 		
-//		session.removeAttribute("session");
+		session.removeAttribute("session");
 		return "redirect:/admin/login";
 	}
 }
