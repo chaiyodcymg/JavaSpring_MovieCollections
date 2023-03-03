@@ -10,7 +10,6 @@
 <body>
 <div class="container p-5 my-5  border">
   <h2>Login</h2>
-    <h2>Login</h2>
   <form action="/admin/login" method="POST">
     <div class="mb-3 mt-3">
       <label for="email">Username:</label>
