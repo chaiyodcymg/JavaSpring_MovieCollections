@@ -8,11 +8,5 @@
 </head>
 <body>
 <h1>addmoviess</h1>
-
-
-<form action="/image/uploadimage" enctype="multipart/form-data" method="post">
-  <input type="file" name="img">
-  <input type="submit">
-</form>
 </body>
 </html>
