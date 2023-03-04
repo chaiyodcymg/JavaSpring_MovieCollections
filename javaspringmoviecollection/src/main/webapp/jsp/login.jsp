@@ -17,7 +17,7 @@
     </div>
     <div class="mb-3">
       <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="password" placeholder="Enter password" name="password"  value="admin1234">
+      <input type="password" class="form-control" id="password" placeholder="Enter password" name="password"  value="1234">
     </div>
   <!--   <div class="form-check mb-3">
       <label class="form-check-label">
