@@ -17,42 +17,44 @@ import org.springframework.web.multipart.MultipartFile;
 import com.chaiyot.javaspringmoviecollection.model.Image;
 import com.chaiyot.javaspringmoviecollection.model.ImageRepo;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/image")
 public class MoviesController {
-	
+
 	@Autowired
 	private ImageRepo imgRepo;
 
 	@PostMapping("/uploadimage")
 	public String uploadimage(@RequestParam MultipartFile img) {
-		
-//		Image im = new Image();
-//		im.setImagename(img.getOriginalFilename());
-//		 
-//		Image uploadimg = imgRepo.save(im);
-//		if (uploadimg != null) {
-			try {
-				
-				String Ranstr = RandomString.getAlphaNumericString(20) + GetExtensionFile.GetEx(img.getOriginalFilename());
-				String saveimg = new File("").getAbsolutePath()+"/src/main/resources/static/img/" + Ranstr;
-				Path path = Paths.get(saveimg);
-				Files.copy(img.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
+
+		// Image im = new Image();
+		// im.setImagename(img.getOriginalFilename());
+		//
+		// Image uploadimg = imgRepo.save(im);
+		// if (uploadimg != null) {
+	
+		try {
+
+			String Ranstr = RandomString.getAlphaNumericString(20) + GetExtensionFile.GetEx(img.getOriginalFilename());
+
+			if (StorageService.store(img, Ranstr)) {
 				Image im = new Image();
 				im.setImagename("/img/" + Ranstr);
-				Image uploadimg = imgRepo.save(im);
-				System.out.println(path);
-			
-			} catch (Exception e) {
-				
+				imgRepo.save(im);
+				return "redirect:/";
 			}
-//		}
-		
-	
+
+			// System.out.println(path);
+
+		} catch (Exception e) {
+
+		}
+
+		// }
+
 		return "redirect:/admin/addmovies";
 	}
 }
-	
-

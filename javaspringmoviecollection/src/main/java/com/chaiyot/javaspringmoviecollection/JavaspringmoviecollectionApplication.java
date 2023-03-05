@@ -12,14 +12,14 @@ public class JavaspringmoviecollectionApplication implements WebMvcConfigurer{
 		SpringApplication.run(JavaspringmoviecollectionApplication.class, args);
 	}
 	
-	@Override
-    public void addInterceptors(InterceptorRegistry registry) {
-		// List เอาไว้ยกเว้นการเช็ค session
-		String[] allExcludePath  = {"/login","/css/**","/js/**","/img/**","/admin/logout"};
-	
-        registry.addInterceptor(new SessionInterceptor())
-        .addPathPatterns("/admin/**")
-        .excludePathPatterns(allExcludePath);
-    }
+//	@Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//		// List เอาไว้ยกเว้นการเช็ค session
+//		String[] allExcludePath  = {"/login","/css/**","/js/**","/img/**","/admin/logout"};
+//	
+//        registry.addInterceptor(new SessionInterceptor())
+//        .addPathPatterns("/admin/**")
+//        .excludePathPatterns(allExcludePath);
+//    }
 
 }
