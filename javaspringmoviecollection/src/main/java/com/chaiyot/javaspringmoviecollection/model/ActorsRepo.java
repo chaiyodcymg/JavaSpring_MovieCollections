@@ -18,36 +18,35 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 
-
 @Repository
-public class ImageRepo {
+public class ActorsRepo {
 	
 	@PersistenceContext
 	private EntityManager entityManager; 
 	
 	@Transactional
-	public List<Image> findAll() {
-		Query query = (Query) entityManager.createQuery("from Image"); // สร้างคำสั่ง SELECT ข้อมูลจากตาราง customer
+	public List<Actors> findAll() {
+		Query query = (Query) entityManager.createQuery("from Actors"); // สร้างคำสั่ง SELECT ข้อมูลจากตาราง customer
 		return query.getResultList(); // ดึงรายการผลลัพธ์จากการ Query ส่งกลับ
 
 	}
 	
-	public Image findById(Integer id) {
-		return entityManager.find(Image.class, id); // ค้นหา Customer ตาม id
+	public Actors findById(Integer id) {
+		return entityManager.find(Actors.class, id); // ค้นหา Customer ตาม id
 	}
 	
 	@Transactional
-	public Image  save(Image  ad) {
+	public Actors  save(Actors  ad) {
 		entityManager.persist(ad); // insert กรณีไม่มีค่า id ใน object หรือ update กรณีมีค่า id ใน object
 		return ad;
 	}
 	
-	public Image findByUsernameAndPassword(String username, String password) {
+	public Actors findByUsernameAndPassword(String username, String password) {
 		try {
-			Query query = entityManager.createNativeQuery("SELECT * FROM image WHERE username = ? AND password = ?", Image.class);
+			Query query = entityManager.createNativeQuery("SELECT * FROM actors WHERE username = ? AND password = ?", Actors.class);
 	        query.setParameter(1, username);
 	        query.setParameter(2, password);
-	        return (Image) query.getSingleResult();
+	        return (Actors) query.getSingleResult();
 		        
 		} catch (NoResultException e) {
 			 return null;

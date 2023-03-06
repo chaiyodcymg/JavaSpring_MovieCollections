@@ -29,6 +29,8 @@ public class AdminController {
 	@Autowired
 	AdminRepo repo;
 	
+	@Autowired
+	ActorsRepo actorRepo;
 	
 	PasswordEncoder Encode;
 	
@@ -41,6 +43,8 @@ public class AdminController {
 //		  session.setAttribute("myAttribute", "hello");
 //	      String myAttribute = (String) session.getAttribute("myAttribute");
 //	      System.out.println( myAttribute );
+		List<Actors> actor = actorRepo.findAll();		
+		model.addAttribute("actorlist", actor);
 		
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		return "addmovies";

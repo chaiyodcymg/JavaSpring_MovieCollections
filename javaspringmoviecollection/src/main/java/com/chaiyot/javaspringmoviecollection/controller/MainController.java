@@ -9,8 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.chaiyot.javaspringmoviecollection.model.Image;
-import com.chaiyot.javaspringmoviecollection.model.ImageRepo;
+import com.chaiyot.javaspringmoviecollection.model.Movies;
+import com.chaiyot.javaspringmoviecollection.model.MoviesRepo;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpSession;
 //@RequestMapping("/admin")
 public class MainController {
 	@Autowired
-	ImageRepo repo;
+	MoviesRepo repo;
 	
 	@GetMapping("/")
 	public String home(HttpServletRequest request,Model model,HttpSession session,HttpServletResponse response) {
@@ -28,10 +28,11 @@ public class MainController {
 //	      String myAttribute = (String) session.getAttribute("myAttribute");
 //	      System.out.println( myAttribute );
 		
-		List<Image> img = repo.findAll();
-		model.addAttribute("Listimg", img);
+		List<Movies> img = repo.findAll();
+		model.addAttribute("list", img);
 		
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+//		System.out.println(img);
 		return "home";
 	}
 	
