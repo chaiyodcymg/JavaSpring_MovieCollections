@@ -28,8 +28,8 @@ public class MainController {
 //	      String myAttribute = (String) session.getAttribute("myAttribute");
 //	      System.out.println( myAttribute );
 		
-		List<Movies> img = repo.findAll();
-		model.addAttribute("list", img);
+		List<Movies> mov = repo.findAll();
+		model.addAttribute("list", mov);
 		
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 //		System.out.println(img);

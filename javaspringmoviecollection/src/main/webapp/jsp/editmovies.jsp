@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home Page</title>
-<jsp:include page="header_admin.jsp"/>
+<jsp:include page="header_admin.jsp" />
 
 
 </head>
@@ -18,7 +18,7 @@
 	<c:if test="${sessionScope.msg != null}">
 		<div class="alert alert-danger" role="alert">
 			${msg}
-			<c:remove var="msg"/>
+			<c:remove var="msg" />
 		</div>
 	</c:if>
 
@@ -30,7 +30,8 @@
 		<!-- Modal -->
 		<div class="modal fade " id="exampleModal" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<form action="/movie/addactor" enctype="multipart/form-data" method="post">
+			<form action="/movie/addactoredit" enctype="multipart/form-data"
+				method="post">
 				<div class="modal-dialog modal-add">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -63,15 +64,18 @@
 		</div>
 		<div class="card shadow-lg">
 			<div class="card-body">
-				<form action="/movie/addmovies" enctype="multipart/form-data" method="post">
+				<form action="/movie/editmovies" enctype="multipart/form-data"
+					method="post">
 					<div class="mb-3">
 						<label for="exampleInputEmail1" class="form-label">ชื่อหนัง</label>
 						<input type="text" class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp" name="moviename">
+							aria-describedby="emailHelp" name="moviename"
+							value="${movie.moviename}">
 					</div>
 					<div class="mb-3">
 						<label for="exampleInputPassword1" class="form-label">ประเภทหนัง</label>
-						<input type="text" class="form-control" id="exampleInputPassword1" name="category">
+						<input type="text" class="form-control" id="exampleInputPassword1"
+							name="category" value="${movie.category}">
 					</div>
 					<div class="mb-3">
 						<div class="select-btn">
@@ -79,36 +83,38 @@
 								<i class="fa-solid fa-chevron-down"></i>
 							</span>
 						</div>
+						<button type="button" class="btn btn-primary ms-3 add-ch">
+							<i class="fa-solid fa-plus"></i>
+						</button>
+						</li>
+						<c:forEach items="${listract}" var="role">
 
-						<ul class="list-items" id="list-items">
-							<li class="item"><input type="text"
-								class="form-control me-2" id="role" placeholder="ชื่อตัวละคร"
-								name="role"> <span>เล่นโดย</span> <select
-								class="form-select ms-2" id="actorID1"
-								aria-label="Floating label select example" name="actorID">
-									<option selected>ชื่อนักแสดง</option>
-									<c:forEach items="${actorlist}" var="act">
-										<option value="${act.actors_id}">${act.actorName}</option>
-									</c:forEach>
-							</select>
-								<button type="button" class="btn btn-primary ms-3 add-ch">
-									<i class="fa-solid fa-plus"></i>
-								</button></li>
-
-
-						</ul>
-
+							<ul class="list-items" id="list-items">
+								<li class="item"><input type="text"
+									class="form-control me-2" id="role" placeholder="ชื่อตัวละคร"
+									name="role" value="${role.role}"> <span>เล่นโดย</span>
+									<select class="form-select ms-2" id="actorID1"
+									aria-label="Floating label select example" name="actorID">
+										<option selected>${role.actorName}</option>
+										<c:forEach items="${actorlist}" var="act">
+											<option value="${act.actors_id}">${act.actorName}</option>
+										</c:forEach>
+								</select>
+									<button type="button" class="btn btn-danger ms-3 remove-row">
+										<i class="fa-solid fa-trash"></i>
+									</button>
+							</ul>
+						</c:forEach>
 					</div>
 					<label for="exampleInputPassword1" class="form-label">คำบรรยาย</label>
 					<div class="mb-3">
-						<textarea id="" rows="4" cols="50"
-							class="description-movie" name="description">
-                </textarea>
+						<textarea id="" rows="4" cols="50" class="description-movie" name="description">${movie.description}</textarea>
 					</div>
 
 					<div class="mb-3">
-						<label for="exampleInputPassword1" class="form-label">รูปภาพ</label>
-						<input type="file" class="form-control" id="exampleInputPassword1" name="img">
+						<img alt="" src="../../${movie.image }" width="200px" id="imgpreview"> <label
+							for="exampleInputPassword1" class="form-label">รูปภาพ</label> 
+							<input type="file" class="form-control" id="chooseimg" name="img"  onchange="showPreview(event);">
 					</div>
 					<button type="submit" class="btn submit-add-act">Submit</button>
 
@@ -156,7 +162,15 @@
             $(this).closest('.item').remove();
         });
 
- 
+ 	
+ 		function showPreview(event){
+ 			  if(event.target.files.length > 0){
+ 			    var src = URL.createObjectURL(event.target.files[0]);
+ 			    var preview = document.getElementById("imgpreview");
+ 			    preview.src = src;
+ 			    preview.style.display = "block";
+ 			  }
+ 			}
     </script>
 
 

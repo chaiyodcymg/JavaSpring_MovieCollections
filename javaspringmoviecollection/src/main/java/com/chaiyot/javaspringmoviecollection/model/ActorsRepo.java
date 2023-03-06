@@ -32,6 +32,7 @@ public class ActorsRepo {
 
 	}
 	
+
 	public Actors findById(Integer id) {
 		return entityManager.find(Actors.class, id); // ค้นหา Customer ตาม id
 	}

@@ -32,6 +32,8 @@ public class MovieActors {
 		this.id = id;
 	}
 
+	
+
 	public Actors getActors_id() {
 		return actors_id;
 	}

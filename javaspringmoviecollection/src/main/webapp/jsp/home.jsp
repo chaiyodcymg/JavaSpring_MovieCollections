@@ -28,8 +28,9 @@
 
 	<a href="admin/addmovies">addmovies</a>
 
-	<c:forEach items="${list}" var="img">
-		<img alt="" src="${img.image}" width="200px" height="200px">
+	<c:forEach items="${list}" var="mov">
+		<img alt="" src="${mov.image}" width="200px" height="200px">
+		<a href="admin/editmovies/${mov.movies_id }">Edit</a>
 	</c:forEach>
 
 

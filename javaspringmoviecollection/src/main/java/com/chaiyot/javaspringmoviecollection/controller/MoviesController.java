@@ -28,7 +28,7 @@ import com.chaiyot.javaspringmoviecollection.model.MoviesRepo;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/add")
+@RequestMapping("/movie")
 public class MoviesController {
 	
 	@Autowired
@@ -59,10 +59,6 @@ public class MoviesController {
 				
 				Files.copy(img.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
 				
-////				String saveimg = new File("").getAbsolutePath()+"/src/main/resources/static/img/" + Ranstr;
-////				Path path = Paths.get(saveimg);
-////				Files.copy(img.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
-////				System.out.println("path= " + path);
 				Movies mov = new Movies();
 				mov.setMoviename(moviename);
 				mov.setCategory(category);
@@ -96,7 +92,7 @@ public class MoviesController {
 	
 		return "redirect:/";
 	}
-	
+
 	
 	@PostMapping("/addactor")
 	public String addactor(@RequestParam MultipartFile img, HttpSession session, @RequestParam("Actorname") String Actorname){
@@ -125,6 +121,35 @@ public class MoviesController {
 		
 	
 		return "redirect:/admin/addmovies";
+	}
+	
+	@PostMapping("/addactoredit")
+	public String addactoredit(@RequestParam MultipartFile img, HttpSession session, @RequestParam("Actorname") String Actorname){
+		String Ranstr = RandomString.getAlphaNumericString(20) + GetExtensionFile.GetEx(img.getOriginalFilename());
+//		System.out.println(img.getOriginalFilename().equals(""));
+		System.out.println(Actorname);
+		if (!img.getOriginalFilename().equals("")) {
+			try {
+			
+				File savefile = new ClassPathResource("static/img").getFile();
+				Path path = Paths.get(savefile.getAbsolutePath() + File.separator + Ranstr);
+				Files.copy(img.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
+				
+
+				Actors act = new Actors();
+				act.setImage("img/"+Ranstr);
+				act.setActorName(Actorname);
+				Actors uploadimg = actRepo.save(act);
+
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}else {
+			session.setAttribute("msg", "กรุณาเลือกรูปภาพ!");
+		}
+		
+	
+		return "redirect:/admin/editmovies";
 	}
 }
 	
