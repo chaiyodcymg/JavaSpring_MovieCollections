@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,6 +34,7 @@
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<form action="/movie/addactoredit" enctype="multipart/form-data"
 				method="post">
+
 				<div class="modal-dialog modal-add">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -66,6 +69,8 @@
 			<div class="card-body">
 				<form action="/movie/editmovies" enctype="multipart/form-data"
 					method="post">
+					<input type="text" name="movies_id" value="${movies_id}"
+						style="display: none">
 					<div class="mb-3">
 						<label for="exampleInputEmail1" class="form-label">ชื่อหนัง</label>
 						<input type="text" class="form-control" id="exampleInputEmail1"
@@ -83,38 +88,50 @@
 								<i class="fa-solid fa-chevron-down"></i>
 							</span>
 						</div>
-						<button type="button" class="btn btn-primary ms-3 add-ch">
-							<i class="fa-solid fa-plus"></i>
-						</button>
-						</li>
-						<c:forEach items="${listract}" var="role">
 
-							<ul class="list-items" id="list-items">
+						<ul class="list-items" id="list-items">
+							<c:forEach items="${listract}" var="role" varStatus="loop">
+
+
 								<li class="item"><input type="text"
 									class="form-control me-2" id="role" placeholder="ชื่อตัวละคร"
 									name="role" value="${role.role}"> <span>เล่นโดย</span>
 									<select class="form-select ms-2" id="actorID1"
 									aria-label="Floating label select example" name="actorID">
-										<option selected>${role.actorName}</option>
+										<option selected value="${role.actors_id}">${role.actorName}
+										</option>
 										<c:forEach items="${actorlist}" var="act">
-											<option value="${act.actors_id}">${act.actorName}</option>
+											<c:if test="${act.actors_id != role.actors_id}">
+												<option value="${act.actors_id}">${act.actorName}</option>
+											</c:if>
 										</c:forEach>
-								</select>
-									<button type="button" class="btn btn-danger ms-3 remove-row">
-										<i class="fa-solid fa-trash"></i>
-									</button>
-							</ul>
-						</c:forEach>
+								</select> <fmt:parseNumber var="i" integerOnly="true" type="number"
+										value="${loop.index}" /> <c:if test="${i == 0}">
+										<button type="button" class="btn btn-primary ms-3 add-ch">
+											<i class="fa-solid fa-plus"></i>
+										</button>
+									</c:if> <c:if test="${i > 0}">
+										<button type="button" class="btn btn-danger ms-3 remove-row">
+											<i class="fa-solid fa-trash"></i>
+										</button>
+									</c:if></li>
+
+							</c:forEach>
+						</ul>
+
 					</div>
 					<label for="exampleInputPassword1" class="form-label">คำบรรยาย</label>
 					<div class="mb-3">
-						<textarea id="" rows="4" cols="50" class="description-movie" name="description">${movie.description}</textarea>
+						<textarea id="" rows="4" cols="50" class="description-movie"
+							name="description">${movie.description}</textarea>
 					</div>
 
 					<div class="mb-3">
-						<img alt="" src="../../${movie.image }" width="200px" id="imgpreview"> <label
-							for="exampleInputPassword1" class="form-label">รูปภาพ</label> 
-							<input type="file" class="form-control" id="chooseimg" name="img"  onchange="showPreview(event);">
+						<img alt="" src="../../${movie.image }" width="200px"
+							id="imgpreview"> <label for="exampleInputPassword1"
+							class="form-label">รูปภาพ</label> <input type="file"
+							class="form-control" id="chooseimg" name="img"
+							onchange="showPreview(event);">
 					</div>
 					<button type="submit" class="btn submit-add-act">Submit</button>
 
@@ -141,7 +158,8 @@
         });
         $(".add-ch").click(function () {
             var options = $('#actorID1').html();
-            var html = ` <li class="item">
+            var html = ` 
+            			<li class="item">
                         <input type="text" class="form-control me-2" id="role" placeholder="ชื่อตัวละคร"  name="role" >
                         <span>เล่นโดย</span>
                         <select class="form-select ms-2"  aria-label="Floating label select example" name="actorID" >
@@ -151,7 +169,8 @@
                                 <button type="button" class="btn btn-danger ms-3 remove-row"> 
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
-                            </li>`;
+                            </li>
+                          `;
 
 
             $('#list-items').append(html);

@@ -1,10 +1,19 @@
 package com.chaiyot.javaspringmoviecollection.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.annotation.Generated;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+
+
 
 @Entity
 public class Movies {
@@ -21,10 +30,6 @@ public class Movies {
 	
 	private String description;
 	
-
-
-
-
 
 	public int getMovies_id() {
 		return movies_id;
@@ -69,3 +74,4 @@ public class Movies {
 
 
 }
+

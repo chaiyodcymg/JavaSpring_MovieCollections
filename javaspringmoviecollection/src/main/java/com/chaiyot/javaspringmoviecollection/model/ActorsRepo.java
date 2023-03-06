@@ -18,7 +18,6 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.transaction.Transactional;
 
-
 @Repository
 public class ActorsRepo {
 	

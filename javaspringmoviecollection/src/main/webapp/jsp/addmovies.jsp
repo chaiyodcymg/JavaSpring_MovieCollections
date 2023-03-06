@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home Page</title>
-<jsp:include page="header_admin.jsp"/>
+<jsp:include page="header_admin.jsp" />
 
 
 </head>
@@ -18,7 +18,7 @@
 	<c:if test="${sessionScope.msg != null}">
 		<div class="alert alert-danger" role="alert">
 			${msg}
-			<c:remove var="msg"/>
+			<c:remove var="msg" />
 		</div>
 	</c:if>
 
@@ -30,7 +30,8 @@
 		<!-- Modal -->
 		<div class="modal fade " id="exampleModal" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<form action="/movie/addactor" enctype="multipart/form-data" method="post">
+			<form action="/movie/addactor" enctype="multipart/form-data"
+				method="post">
 				<div class="modal-dialog modal-add">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -63,7 +64,8 @@
 		</div>
 		<div class="card shadow-lg">
 			<div class="card-body">
-				<form action="/movie/addmovies" enctype="multipart/form-data" method="post">
+				<form action="/movie/addmovies" enctype="multipart/form-data"
+					method="post">
 					<div class="mb-3">
 						<label for="exampleInputEmail1" class="form-label">ชื่อหนัง</label>
 						<input type="text" class="form-control" id="exampleInputEmail1"
@@ -71,7 +73,8 @@
 					</div>
 					<div class="mb-3">
 						<label for="exampleInputPassword1" class="form-label">ประเภทหนัง</label>
-						<input type="text" class="form-control" id="exampleInputPassword1" name="category">
+						<input type="text" class="form-control" id="exampleInputPassword1"
+							name="category">
 					</div>
 					<div class="mb-3">
 						<div class="select-btn">
@@ -101,14 +104,15 @@
 					</div>
 					<label for="exampleInputPassword1" class="form-label">คำบรรยาย</label>
 					<div class="mb-3">
-						<textarea id="" rows="4" cols="50"
-							class="description-movie" name="description">
+						<textarea id="" rows="4" cols="50" class="description-movie"
+							name="description">
                 </textarea>
 					</div>
 
 					<div class="mb-3">
 						<label for="exampleInputPassword1" class="form-label">รูปภาพ</label>
-						<input type="file" class="form-control" id="exampleInputPassword1" name="img">
+						<input type="file" class="form-control" id="exampleInputPassword1"
+							name="img">
 					</div>
 					<button type="submit" class="btn submit-add-act">Submit</button>
 
@@ -127,8 +131,7 @@
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.multiselect/1.13/jquery.multiselect.js"></script> -->
 	<script>
-        const selectBtn = document.querySelector(".select-btn"),
-            items = document.querySelectorAll(".item");
+        const selectBtn = document.querySelector(".select-btn"),items = document.querySelectorAll(".item");
 
         selectBtn.addEventListener("click", () => {
             selectBtn.classList.toggle("open");

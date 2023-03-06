@@ -51,7 +51,7 @@ public class AdminController {
 
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		return "addmovies";
-	}
+	} 
 
 	@GetMapping("/editmovies/{id}")
 	public String edit(HttpServletRequest request, Model model, HttpSession session, HttpServletResponse response,
@@ -61,7 +61,7 @@ public class AdminController {
 		
 		Movies mov = movRepo.findById(id);
 		model.addAttribute("movie" ,mov);
-		
+		model.addAttribute("movies_id",mov.getMovies_id());
 		List<Actors> actor = actorRepo.findAll();
 		model.addAttribute("actorlist", actor);
 		

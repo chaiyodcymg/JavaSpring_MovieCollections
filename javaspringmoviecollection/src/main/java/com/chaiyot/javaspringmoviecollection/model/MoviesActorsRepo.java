@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.data.repository.CrudRepository;
@@ -24,6 +25,7 @@ import jakarta.transaction.Transactional;
 public class MoviesActorsRepo {
 
 	@PersistenceContext
+
 	private EntityManager entityManager;
 
 //	@Transactional
@@ -33,67 +35,76 @@ public class MoviesActorsRepo {
 //
 //	}
 
-	public MovieActors findById(Integer id) {
-		return entityManager.find(MovieActors.class, id);
+	@Transactional
+	public List<MoviesActors> findAll() {
+		Query query = (Query) entityManager.createQuery("from MoviesActors"); // สร้างคำสั่ง SELECT ข้อมูลจากตาราง
+																				// customer
+		return query.getResultList(); // ดึงรายการผลลัพธ์จากการ Query ส่งกลับ
+
+	}
+
+	public MoviesActors findById(Integer id) {
+		return entityManager.find(MoviesActors.class, id); // ค้นหา Customer ตาม id
+	}
+
+	@Transactional
+	public void delete(Integer id) {
+		// ค้นหาตาม id ทีlต้องการลบ
+		Query query = entityManager.createNativeQuery(
+				"DELETE FROM movies_actors WHERE movies_id = ?");
+		query.setParameter(1, id);
+		query.executeUpdate();
 	}
 
 	public List<RoleActor> findAllID(Integer id) {
-		
+
 		try {
-			
+
 			Query query = entityManager.createNativeQuery(
-					"SELECT ma.id as id, ma.role, a.actor_name, a.actors_id, ma.movies_id FROM movie_actors ma JOIN actors a ON ma.actors_id = a.actors_id WHERE ma.movies_id = ?");
+					"SELECT ma.id, ma.role, a.actor_name, a.actors_id, ma.movies_id FROM movies_actors ma JOIN actors a ON ma.actors_id = a.actors_id WHERE ma.movies_id = ?");
 			query.setParameter(1, id);
 			List<Object[]> list = query.getResultList();
 			List<RoleActor> ralist = new ArrayList<RoleActor>();
 			for (Object[] obj : list) {
 				RoleActor ra = new RoleActor();
-				ra.setActors_id((int) obj[0]);
-				ra.setRole((String)obj[1]);
-				ra.setActorName((String)obj[2]);
+				ra.setActors_id((int) obj[3]);
+				ra.setRole((String) obj[1]);
+				ra.setActorName((String) obj[2]);
 				ralist.add(ra);
 			}
 			return ralist;
-		} catch (NoResultException e) {
+		} catch (Exception e) {
+			System.out.println(e);
 			return null;
 		}
 
 	}
 
-//	public List<MovieActors> findAllID(Integer id) {
-//		try {
-//			Query query = entityManager.createNativeQuery(
-//					"SELECT movie_actors.id, movie_actors.role, movie_actors.movies_id,"
-//							+ " movie_actors.actors_id FROM movies "
-//							+ "JOIN movie_actors ON movies.movies_id = movie_actors.movies_id JOIN actors ON actors.actors_id = movie_actors.actors_id"
-//							+ " WHERE movies.movies_id = ?",
-//					Actors.class);
-//			query.setParameter(1, id);
-//		
-//			return query.getResultList();
-//
-//		} catch (NoResultException e) {
-//			return null;
-//		}
-//
-//	}
-
 	@Transactional
-	public MovieActors save(MovieActors ad) {
-		String sql = "INSERT INTO movie_actors (actors_id, movies_id, role) VALUE (:actors_id,:movies_id,:role)";
+	public List<MoviesActors> save(List<MoviesActors> ad) {
+
+		String sql = "INSERT INTO movies_actors(actors_id, movies_id, role) " + "VALUES ";
+
+		for (int i = 0; i < ad.size(); i++) {
+			if (i > 0) {
+				sql += ",";
+			}
+			sql += "(?, ?, ?)";
+		}
+
 		Query query = entityManager.createNativeQuery(sql);
-		List<Object[]> batchArgs = new ArrayList<>();
-//		for(int index = 0 ; index < ad.size() ; index++) {
-//			Object[] args = new Object[] {ad.get(index).getActors_id().getActors_id(), ad.get(index).getMovies_id().getMovies_id(),ad.get(index).getRole()};
-//			batchArgs.add(args);
-//			System.out.println(ad.get(index).getActors_id().getActors_id() + " " + ad.get(index).getMovies_id().getMovies_id()+ " "+  ad.get(index).getRole());
-		query.setParameter("actors_id", ad.getActors_id().getActors_id());
-		query.setParameter("movies_id", ad.getMovies_id().getMovies_id());
-		query.setParameter("role", ad.getRole());
+
+		for (int i = 0; i < ad.size(); i++) {
+			MoviesActors a = ad.get(i);
+			int parameterIndex = i * 3;
+
+			query.setParameter(parameterIndex + 1, a.getActors().getActors_id())
+					.setParameter(parameterIndex + 2, a.getMovies().getMovies_id())
+					.setParameter(parameterIndex + 3, a.getRole());
+
+		}
+
 		query.executeUpdate();
-//		}
-//		query.setParameter("batchArgs", batchArgs);
-//		query.executeUpdate();
 		return ad;
 	}
 
