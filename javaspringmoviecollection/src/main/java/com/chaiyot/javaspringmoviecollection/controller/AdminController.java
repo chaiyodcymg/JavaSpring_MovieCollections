@@ -1,8 +1,14 @@
 package com.chaiyot.javaspringmoviecollection.controller;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +18,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.chaiyot.javaspringmoviecollection.model.*;
 
@@ -34,6 +42,12 @@ public class AdminController {
 	
 	@Autowired
 	MoviesActorsRepo maRepo;
+	
+	@Autowired
+	CategorieRepo catRepo;
+	
+	@Autowired
+	MovieCategoryRepo movcatRepo;
 
 	PasswordEncoder Encode;
 
@@ -48,25 +62,44 @@ public class AdminController {
 //	      System.out.println( myAttribute );
 		List<Actors> actor = actorRepo.findAll();
 		model.addAttribute("actorlist", actor);
+		
+		List<Categories> cat = catRepo.findAll();
+		model.addAttribute("catlist", cat);
 
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		return "addmovies";
 	} 
+	
 
 	@GetMapping("/editmovies/{id}")
 	public String edit(HttpServletRequest request, Model model, HttpSession session, HttpServletResponse response,
 			@PathVariable Integer id) {
+		List<MovCategory> movcat = movcatRepo.findAllID(id);
+		model.addAttribute("movcatlist",movcat);
+//		System.out.println(movcat);
 		List<RoleActor> ract = maRepo.findAllID(id);
 		model.addAttribute("listract", ract);
+		
 		
 		Movies mov = movRepo.findById(id);
 		model.addAttribute("movie" ,mov);
 		model.addAttribute("movies_id",mov.getMovies_id());
+		
 		List<Actors> actor = actorRepo.findAll();
 		model.addAttribute("actorlist", actor);
 		
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		return "editmovies";
+	}
+	
+	@GetMapping("/deletemovies/{id}")
+	public String delete(HttpServletRequest request, Model model, HttpSession session, HttpServletResponse response,
+			@PathVariable Integer id) {
+		
+		 movRepo.deleteMovByID(id);
+		
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		return "redirect:/";
 	}
 
 	@GetMapping("/login")
@@ -88,13 +121,13 @@ public class AdminController {
 //		
 //	  System.out.println("Admin = "+encode );
 //	  assertTrue(passwordEncoder().matches(encode, encode)); /
-
+ 
 		Boolean status = false;
 		Admin ad = (Admin) repo.findByUsernameAndPassword(admin.getUsername(), admin.getPassword());
 		if (ad != null) {
 			System.out.println("Admin = " + ad.getUsername() + " " + ad.getPassword());
 			status = true;
-			session.setAttribute("session", ad.getId());
+			session.setAttribute("session", ad.getAdmin_id());
 			model.addAttribute("status", status);
 			return "redirect:/admin/addmovies";
 		} else {

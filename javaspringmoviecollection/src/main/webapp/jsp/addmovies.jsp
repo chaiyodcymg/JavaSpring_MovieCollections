@@ -44,11 +44,25 @@
 							<div class="mb-3">
 								<label for="InputNameActor" class="form-label">ชื่อ</label> <input
 									type="text" name="Actorname" class="form-control"
-									id="InputActorName" aria-describedby="emailHelp">
+									id="InputActorName" aria-describedby="emailHelp"> <label
+									for="InputAge" class="form-label">วันเกิด</label> <input
+									type="date" name="birthday" class="form-control" id="InputAge"
+									aria-describedby="emailHelp"> <label for="InputGender"
+									class="form-label">เพศ</label><br> <select
+									class="form-select" id="actorage"
+									aria-label="Floating label select example" name="actorgender">
+									<option selected value="f">ผู้หญิง</option>
+									<option value="m">ผู้ชาย</option>
+
+								</select>
 								<div class="mb-3 mt-2">
-									<label for="formFile" class="form-label">รูปภาพ</label> <input
-										class="form-control" type="file" id="formFile" name="img">
+									<img alt="" id="actpreview" width="200px"> <label
+										for="formFile" class="form-label">รูปภาพ</label> <input
+										class="form-control" type="file" id="formFile" name="img"
+										onchange="actorPreview(event);">
 								</div>
+
+
 							</div>
 
 						</div>
@@ -71,13 +85,25 @@
 						<input type="text" class="form-control" id="exampleInputEmail1"
 							aria-describedby="emailHelp" name="moviename">
 					</div>
+					
 					<div class="mb-3">
-						<label for="exampleInputPassword1" class="form-label">ประเภทหนัง</label>
-						<input type="text" class="form-control" id="exampleInputPassword1"
-							name="category">
+						<label for="year" class="form-label">ปีที่ฉาย</label>
+						<input type="text" class="form-control" id="year"
+							aria-describedby="emailHelp" name="yearmovie">
 					</div>
+					<div class="select-btn categories-btn mb-3">
+                            <span class="btn-text">เลือกประเภท</span>
+                            <span class="arrow-dwn">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+                        </div>
+					<ul class="list-items" id="categories">
+					<c:forEach items="${catlist}" var="cat">
+						<li class="item-checkbox"><input type="checkbox" value="${cat.category_id }" name="category"> ${cat.category} </li>
+					</c:forEach>                    
+                        </ul>
 					<div class="mb-3">
-						<div class="select-btn">
+						<div class="select-btn character-btn">
 							<span class="btn-text">ตัวละคร</span> <span class="arrow-dwn">
 								<i class="fa-solid fa-chevron-down"></i>
 							</span>
@@ -110,9 +136,15 @@
 					</div>
 
 					<div class="mb-3">
-						<label for="exampleInputPassword1" class="form-label">รูปภาพ</label>
-						<input type="file" class="form-control" id="exampleInputPassword1"
-							name="img">
+						<img alt="" src="#" width="200px" id="imgpreview"> <label
+							for="exampleInputPassword1" class="form-label">รูปภาพ</label> <input
+							type="file" class="form-control" id="chooseimg" name="img"
+							onchange="showPreview(event);">
+					</div>
+					<div class="mb-3 mt-2">
+						<img alt="" src="#" width="200px" id="posterpreview"> <label
+							for="formFile" class="form-label">โปสเตอร์</label> <input
+							class="form-control" type="file" id="formFile" name="poster" onchange="posterPreview(event);">
 					</div>
 					<button type="submit" class="btn submit-add-act">Submit</button>
 
@@ -131,11 +163,19 @@
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.multiselect/1.13/jquery.multiselect.js"></script> -->
 	<script>
-        const selectBtn = document.querySelector(".select-btn"),items = document.querySelectorAll(".item");
+        
 
-        selectBtn.addEventListener("click", () => {
-            selectBtn.classList.toggle("open");
-        });
+        const select1 = document.querySelector(".categories-btn"),
+        select2 = document.querySelector(".character-btn "),
+        items = document.querySelectorAll(".item");
+
+        select1.addEventListener("click", () => {
+            select1.classList.toggle("open");
+    });
+
+    select2.addEventListener("click", () => {
+        select2.classList.toggle("open");
+    });
         $(".add-ch").click(function () {
             var options = $('#actorID1').html();
             var html = ` <li class="item">
@@ -159,7 +199,33 @@
             $(this).closest('.item').remove();
         });
 
- 
+        function showPreview(event){
+			  if(event.target.files.length > 0){
+			    var src = URL.createObjectURL(event.target.files[0]);
+			    var preview = document.getElementById("imgpreview");
+			    preview.src = src;
+			    preview.style.display = "block";
+			  }
+			}
+		
+		function actorPreview(event){
+			  if(event.target.files.length > 0){
+			    var src = URL.createObjectURL(event.target.files[0]);
+			    var preview = document.getElementById("actpreview");
+			    preview.src = src;
+			    preview.style.display = "block";
+			  }
+			}
+		
+		function posterPreview(event){
+			  if(event.target.files.length > 0){
+			    var src = URL.createObjectURL(event.target.files[0]);
+			    var preview = document.getElementById("posterpreview");
+			    preview.src = src;
+			    preview.style.display = "block";
+			  }
+			}
+		
     </script>
 
 

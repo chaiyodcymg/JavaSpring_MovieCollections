@@ -26,7 +26,7 @@ public class MoviesRepo {
 
 	@Transactional
 	public List<Movies> findAll() {
-		Query query = (Query) entityManager.createQuery("from Movies"); // สร้างคำสั่ง SELECT ข้อมูลจากตาราง customer
+		Query query = (Query) entityManager.createNativeQuery("SELECT * FROM movies WHERE deleted = 0", Movies.class); // สร้างคำสั่ง SELECT ข้อมูลจากตาราง customer
 		return query.getResultList(); // ดึงรายการผลลัพธ์จากการ Query ส่งกลับ
 
 	}
@@ -40,6 +40,21 @@ public class MoviesRepo {
 		entityManager.persist(ad); // insert กรณีไม่มีค่า id ใน object หรือ update กรณีมีค่า id ใน object
 		return ad;
 	}
+	
+	@Transactional
+	public void deleteMovByID(int id) {
+		try {
+			Query query = entityManager.createNativeQuery("UPDATE movies SET deleted = ? WHERE movies_id = ?");
+			query.setParameter(1, true);
+	        query.setParameter(2, id);
+	        query.executeUpdate();
+		    
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+    }
+	
 
 	
 

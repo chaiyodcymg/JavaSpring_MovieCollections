@@ -26,7 +26,7 @@ public class ActorsRepo {
 	
 	@Transactional
 	public List<Actors> findAll() {
-		Query query = (Query) entityManager.createQuery("from Actors"); // สร้างคำสั่ง SELECT ข้อมูลจากตาราง customer
+		Query query = (Query) entityManager.createNativeQuery("SELECT * FROM actors WHERE deleted = 0", Actors.class); // สร้างคำสั่ง SELECT ข้อมูลจากตาราง customer
 		return query.getResultList(); // ดึงรายการผลลัพธ์จากการ Query ส่งกลับ
 
 	}

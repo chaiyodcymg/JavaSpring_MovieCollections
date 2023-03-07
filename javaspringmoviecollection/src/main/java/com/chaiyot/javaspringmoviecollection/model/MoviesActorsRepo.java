@@ -83,25 +83,24 @@ public class MoviesActorsRepo {
 	@Transactional
 	public List<MoviesActors> save(List<MoviesActors> ad) {
 
-		String sql = "INSERT INTO movies_actors(actors_id, movies_id, role) " + "VALUES ";
+		String sql = "INSERT INTO movies_actors(actors_id, movies_id, role, deleted) VALUES ";
 
 		for (int i = 0; i < ad.size(); i++) {
 			if (i > 0) {
 				sql += ",";
 			}
-			sql += "(?, ?, ?)";
+			sql += "(?, ?, ?, ?)";
 		}
 
 		Query query = entityManager.createNativeQuery(sql);
-
 		for (int i = 0; i < ad.size(); i++) {
 			MoviesActors a = ad.get(i);
-			int parameterIndex = i * 3;
+			int parameterIndex = i * 4;
 
 			query.setParameter(parameterIndex + 1, a.getActors().getActors_id())
 					.setParameter(parameterIndex + 2, a.getMovies().getMovies_id())
-					.setParameter(parameterIndex + 3, a.getRole());
-
+					.setParameter(parameterIndex + 3, a.getRole())
+					.setParameter(parameterIndex + 4, false);
 		}
 
 		query.executeUpdate();

@@ -18,29 +18,22 @@
 	</c:if>
 
 
-	<h1>Home</h1>
-	<a href="admin/login">Login</a>
-	<br>
-
-	<a href="admin/logout">Logout</a>
-	<br>
-	<br>
+	<h1>Actors</h1>
+	
 
 	<a href="admin/addmovies">addmovies</a>
-	
-	<br>
-	
 
 
-	<c:forEach items="${list}" var="mov">
-		<img alt="" src="${mov.posterimage}" width="200px" height="200px">
-		<c:if test="${sessionScope.session != null}">
+	<c:forEach items="${actlist}" var="act">
+		<img alt="" src="${act.image}" width="200px" height="200px">
+		${act.actorName} <br>
+		${act.birthday} <br>
+		${act.gender} <br>
 			<a href="admin/editmovies/${mov.movies_id }">แก้ไข</a>
 			<a href="admin/deletemovies/${mov.movies_id }">ลบ</a>
-		</c:if>
-		
+		<br>
 	</c:forEach>
-<br>
-<a href="/actors">actors</a>
+
+
 </body>
 </html>

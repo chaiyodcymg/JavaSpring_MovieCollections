@@ -10,15 +10,16 @@ public class Admin {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Integer admin_id;
 	private String username;
 	private String password;
 	
-	public Integer getId() {
-		return id;
+	
+	public Integer getAdmin_id() {
+		return admin_id;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setAdmin_id(Integer admin_id) {
+		this.admin_id = admin_id;
 	}
 	public String getUsername() {
 		return username;

@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.chaiyot.javaspringmoviecollection.model.Actors;
+import com.chaiyot.javaspringmoviecollection.model.ActorsRepo;
 import com.chaiyot.javaspringmoviecollection.model.Movies;
 import com.chaiyot.javaspringmoviecollection.model.MoviesRepo;
 
@@ -22,6 +24,9 @@ public class MainController {
 	@Autowired
 	MoviesRepo repo;
 	
+	@Autowired
+	ActorsRepo actrepo;
+	
 	@GetMapping("/")
 	public String home(HttpServletRequest request,Model model,HttpSession session,HttpServletResponse response) {
 //		  session.setAttribute("myAttribute", "hello");
@@ -34,6 +39,20 @@ public class MainController {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 //		System.out.println(img);
 		return "home";
+	}
+	
+	@GetMapping("/actors")
+	public String actor(HttpServletRequest request,Model model,HttpSession session,HttpServletResponse response) {
+//		  session.setAttribute("myAttribute", "hello");
+//	      String myAttribute = (String) session.getAttribute("myAttribute");
+//	      System.out.println( myAttribute );
+		
+		List<Actors> actor = actrepo.findAll();
+		model.addAttribute("actlist", actor);
+		
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+//		System.out.println(img);
+		return "actors";
 	}
 	
 //	public String getImage(Model model) {

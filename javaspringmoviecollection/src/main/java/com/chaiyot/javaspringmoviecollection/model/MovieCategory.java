@@ -1,10 +1,5 @@
 package com.chaiyot.javaspringmoviecollection.model;
 
-import java.sql.Timestamp;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -14,10 +9,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-@Table(name = "movies_actors")
+@Table(name = "movies_categories")
 @Entity
-public class MoviesActors {
-	   @Id
+public class MovieCategory {
+
+	 @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private int id;
 
@@ -26,56 +22,51 @@ public class MoviesActors {
 	    private Movies movies;
 
 	    @ManyToOne(fetch = FetchType.LAZY)
-	    @JoinColumn(name = "actors_id")
-	    private Actors actors;
-
-	    private String role;
+	    @JoinColumn(name = "category_id")
+	    private Categories categories;
 	     
 		
 		boolean deleted = false;
- 
-		
 
-	
-
-		public boolean isDeleted() {
-			return deleted;
-		}
-
-		public void setDeleted(boolean deleted) {
-			this.deleted = deleted;
-		}
 
 		public int getId() {
 			return id;
 		}
 
+
 		public void setId(int id) {
 			this.id = id;
 		}
+
 
 		public Movies getMovies() {
 			return movies;
 		}
 
+
 		public void setMovies(Movies movies) {
 			this.movies = movies;
 		}
 
-		public Actors getActors() {
-			return actors;
+
+		public Categories getCategories() {
+			return categories;
 		}
 
-		public void setActors(Actors actors) {
-			this.actors = actors;
+
+		public void setCategories(Categories categories) {
+			this.categories = categories;
 		}
 
-		public String getRole() {
-			return role;
+
+		public boolean isDeleted() {
+			return deleted;
 		}
 
-		public void setRole(String role) {
-			this.role = role;
-		}
 
+		public void setDeleted(boolean deleted) {
+			this.deleted = deleted;
+		}
+		
+		
 }
