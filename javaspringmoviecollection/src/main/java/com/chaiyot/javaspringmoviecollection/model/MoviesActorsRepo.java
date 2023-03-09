@@ -79,6 +79,37 @@ public class MoviesActorsRepo {
 		}
 
 	}
+	
+	public List<ShowMovieCategory> findActormovie(Integer id) {
+
+		try {
+            String sql = "SELECT m.movies_id , GROUP_CONCAT(c.category) as categories, m.moviename, m.posterimage FROM actors a "
+            		+ "   JOIN movies_actors ma ON ma.actors_id = a.actors_id "
+            		+ "   JOIN movies m ON ma.movies_id = m.movies_id "
+            		+ "   JOIN movies_categories mc ON m.movies_id = mc.movies_id "
+            		+ "   JOIN categories c ON c.category_id = mc.category_id "
+            		+ "   WHERE ma.actors_id = ? "
+            		+ "   GROUP BY m.movies_id;";
+			Query query = entityManager.createNativeQuery(sql);
+			query.setParameter(1, id);
+			List<Object[]> list = query.getResultList();
+			List<ShowMovieCategory> movlist = new ArrayList<ShowMovieCategory>();
+			for (Object[] obj : list) {
+				ShowMovieCategory smc = new ShowMovieCategory();
+				smc.setMovies_id((int) obj[0]);
+				smc.setMoviename((String) obj[2]);
+				smc.setCategory((String) obj[1]);
+				smc.setPosterimage((String) obj[3]);
+				movlist.add(smc);
+			}
+			return movlist;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+
+	}
+	
 
 	@Transactional
 	public List<MoviesActors> save(List<MoviesActors> ad) {

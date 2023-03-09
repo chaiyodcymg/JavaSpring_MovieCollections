@@ -8,25 +8,25 @@
 	<jsp:include page="header_admin.jsp"/>
 </head>
 <body>
-<div class="container p-5 my-5  border">
-  <h2>Login</h2>
-  <form action="/admin/login" method="POST">
-    <div class="mb-3 mt-3">
-      <label for="email">Username:</label>
-      <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" value="admin">
+
+ <div class="container-md mt-5">
+        <div class="card login-box shadow-lg">
+            <div class="card-body">
+                <h1>เข้าสู่ระบบ</h1>
+                <form action="/admin/login" method="POST">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">ชื่อผู้ใช้</label>
+                        <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" value="admin">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">รหัสผ่าน</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter password" name="password"  value="1234">
+                    </div>
+                    <button type="submit" class="submit-btn" style="width: 100%;">ยืนยัน</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-      <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="password" placeholder="Enter password" name="password"  value="1234">
-    </div>
-  <!--   <div class="form-check mb-3">
-      <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="remember"> Remember me
-      </label>
-    </div> -->
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-<!--   <img src="../img/jaae.png" width="500" height="600"/> -->
-</div>
+
 </body>
 </html>

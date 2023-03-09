@@ -1,4 +1,5 @@
 package com.chaiyot.javaspringmoviecollection.model;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,10 +27,11 @@ public class ActorsRepo {
 	
 	@Transactional
 	public List<Actors> findAll() {
-		Query query = (Query) entityManager.createNativeQuery("SELECT * FROM actors WHERE deleted = 0", Actors.class); // สร้างคำสั่ง SELECT ข้อมูลจากตาราง customer
+		Query query = (Query) entityManager.createNativeQuery("SELECT * FROM actors WHERE deleted = 0", Actors.class); 
 		return query.getResultList(); // ดึงรายการผลลัพธ์จากการ Query ส่งกลับ
 
 	}
+	
 	
 
 	public Actors findById(Integer id) {
