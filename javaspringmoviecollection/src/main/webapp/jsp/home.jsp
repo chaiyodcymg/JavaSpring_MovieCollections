@@ -6,20 +6,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Movie Collections</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kodchasan">
 
-<link href="css/home.css" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Labrada">
+ <c:if test="${searchmov == null}">
+      <link href="css/home.css" rel="stylesheet">
+ </c:if>
+ <c:if test="${searchmov != null}">
+      <link href="../../css/home.css" rel="stylesheet">
+ </c:if>
 
-<!--  JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Labrada">
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
-<!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+	crossorigin="anonymous">
+
+
 </head>
 <body>
 
@@ -29,62 +35,110 @@
 			<c:remove var="msg" />
 		</div>
 	</c:if>
+<!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg">
+        <!-- Container wrapper -->
+        <div class="container">
+            <!-- Navbar brand -->
+            <a href="/" class="navbar-brand me-5">
+                <h1 style="font-family: 'Kodchasan';"><span>C</span>ollect<span>M</span>ovie</h1>
+            </a>
 
-	<!-- Navbar -->
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
 
-	<jsp:include page="navbar.jsp"></jsp:include>
-	<!-- Navbar -->
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarButtonsExample">
+                <!-- Left links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/actorlist">นักแสดง</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                              ประเภทหนัง
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                              <c:forEach items="${listcat}" var="cat">
+                               	<li><a class="dropdown-item" href="${cat.category_id}" >${cat.category}</a></li>
+                              </c:forEach>
+                            </ul>
+                          </div>
+                    </li>
+                </ul>
+                <!-- Left links -->
+                <div class="d-flex align-items-center">
+                    <c:if test="${sessionScope.session != null}">
+								<a href="admin/logout" class="signin-btn">Logout</a>
+							</c:if>
+							
+							<c:if test="${sessionScope.session == null}">
+								 <a href="admin/login" class="signin-btn">Login</a>
+							</c:if>
+                </div>
 
+            </div>
+            <!-- Collapsible wrapper -->
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+	
+<form class="d-flex" role="search" action="/movie/moviesearch">
+		 <c:if test="${searchmov != null}">
+         		<input type="search" id="filter" name="movie" value="${searchmov}" class="shadow-lg mt-3 mb-4" placeholder="ค้นหาภาพยนตร์"/>
+         </c:if>
+			<c:if test="${searchmov == null}">
+				<input type="search" id="filter" name="movie"
+					class="shadow-lg mt-3 mb-4" placeholder="ค้นหาภาพยนตร์" />
+			</c:if>
 
-	<div class="listyear">
+		</form>
+         <c:if test="${searchmov != null}">
+         		<p> ค้นหา '${searchmov}' ใน ภาพยนตร์ </p>
+         </c:if>
 
-		<div id="horizontal-nav">
-			<div class="btn-prev" role="button" tabindex="0">
-				<svg viewBox="0 0 24 24">
-      <path d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"
-						fill="hsl(141, 15%, 50%)">
-      </path>
-    </svg>
-			</div>
-			<div class="menu-wrap">
-				<ul class="menu">
-					<c:forEach items="${listcat}" var="cat">
-						<li class="list-item">
-						<a href="${cat.category_id}" class="pill"> ${cat.category} </a></li>
-					</c:forEach>
-
-
-				</ul>
-			</div>
-			<div class="btn-next" role="button">
-				<svg viewBox="0 0 24 24">
-      <path d="M8.59,16.59L13.17,12L8.59,7.41L10,6l6,6l-6,6L8.59,16.59z"
-						fill="hsl(141, 15%, 50%)">
-      </path>
-    </svg>
-			</div>
-		</div>
-
-
-	</div>
+	
 
 	<div class="moviecard">
 		<div class="movcard">
-			<c:forEach items="${listmovcat}" var="listmov">
+			<c:forEach items="${listmovcat}" var="mov">
+			<div class="mov-pic">
+                <a href="movie_detail/${mov.movies_id}" class="mov-pic-a">
+                    <div class="wrap-pic">
+                        <c:if test="${searchmov == null}">
+         					<img src="${mov.posterimage}" class="img-mov" alt="...">
+         				</c:if>
+						<c:if test="${searchmov != null}">
+         					<img src="../${mov.posterimage}" class="img-mov" alt="...">
+         				</c:if>
+                    </div>
+                    <div class="movie-name">
+                        <p class="moviename-text">${mov.moviename}</p>
+                    </div>
+                    <p class="movtype">
+                        <b>categories:</b> ${mov.category}
+                    </p>
+                    
+                </a>
+                <div class="mov-edit-div">
+	                <c:if test="${sessionScope.session != null}">
+						<a class="mov-edit btn btn-primary" href="admin/editmovies/${mov.movies_id}">แก้ไข</a>
+	                    <a class="mov-edit btn btn-danger" href="admin/deletemovies/${mov.movies_id}">ลบ</a>
+					</c:if>
+                </div>
+            </div>
 
-				<c:forEach items="${listmov.value}" var="mov">
-					<a href="movie_detail/${mov.movies_id}" class="mov-pic">
-
-						<div class="wrap-pic">
-							<img src="${mov.posterimage}" class="img-mov" alt="...">
-						</div>
-						<div class="movie-name">
-							<p class="moviename-text">${mov.moviename}</p>
-						</div>
-						<p class="movtype">categories: ${mov.category}</p>
-					</a>
-				</c:forEach>
 			</c:forEach>
+			
 		</div>
 	</div>
 
@@ -131,87 +185,6 @@
 	</footer>
 </body>
 
-<script>
 
-function resizeMenu() {
-	  let wrapW = $("#horizontal-nav .menu-wrap").width(),
-	    menuW = $("#horizontal-nav .menu").width();
-
-	  let itemsToScroll = 3,
-	    widthToScroll = 0,
-	    scrollX = parseFloat($("#horizontal-nav .menu-wrap .menu").css("left"));
-
-	  if ($(this).hasClass("btn-prev")) {
-	    let prevItemIndex,
-	      prevItemsWidth = 0;
-
-	    $("#horizontal-nav .list-item").each((i, el) => {
-	      if (prevItemIndex !== undefined) return;
-	      prevItemsWidth += $(el).outerWidth() + 14;
-	      if (Math.ceil(prevItemsWidth) > Math.abs(scrollX)) prevItemIndex = i;
-	    });
-
-	    for (
-	      let i = prevItemIndex;
-	      i >= 0 && i > prevItemIndex - itemsToScroll;
-	      i--
-	    )
-	      prevItemsWidth -=
-	        $(`#horizontal-nav .list-item:eq(${i})`).outerWidth() + 14;
-
-	    widthToScroll = scrollX - prevItemsWidth;
-	    let newScrollX = Math.abs(scrollX) + widthToScroll;
-	    $("#horizontal-nav .menu-wrap .menu").css({ left: newScrollX });
-
-	    $(this).toggleClass("hidden", !Math.floor(newScrollX));
-	    $(".btn-next").removeClass("hidden");
-	  } else {
-	    let nextItemIndex,
-	      prevItemsWidth = 0;
-
-	    $("#horizontal-nav .list-item").each((i, el) => {
-	      if (nextItemIndex !== undefined) return;
-	      prevItemsWidth += $(el).outerWidth() + 14;
-	      if (Math.floor(prevItemsWidth - 14) > Math.abs(scrollX) + wrapW)
-	        nextItemIndex = i;
-	    });
-
-	    if (scrollX + wrapW >= menuW) {
-	      if (!$(this).hasClass("hidden")) $(this).addClass("hidden");
-	      return;
-	    }
-	    $(this).removeClass("hidden");
-
-	    for (
-	      let i = nextItemIndex + 1;
-	      i < nextItemIndex + itemsToScroll &&
-	      nextItemIndex + itemsToScroll <= $("#horizontal-nav .list-item").length;
-	      i++
-	    )
-	      prevItemsWidth +=
-	        $(`#horizontal-nav .list-item:eq(${i})`).outerWidth() + 14;
-	    widthToScroll = prevItemsWidth - 14 - (Math.abs(scrollX) + wrapW);
-	    let newScrollX = scrollX - widthToScroll;
-	    $("#horizontal-nav .menu-wrap .menu").css({ left: newScrollX });
-	    console.log(Math.round(Math.abs(newScrollX + wrapW)), menuW);
-	    $(this).toggleClass(
-	      "hidden",
-	      Math.round(Math.abs(newScrollX) + wrapW) >= Math.round(menuW)
-	    );
-	    $(".btn-prev").removeClass("hidden");
-	  }
-	}
-	$(() => {
-	  $("#horizontal-nav .list-item").each(function () {
-	    if ($(this).find(".sub-menu").length) $(this).addClass("has-submenu");
-	  });
-	  $("#horizontal-nav").on("click", ".btn-prev, .btn-next", resizeMenu);
-
-	  $(document).on("resize", resizeMenu);
-	});
-
-
-
-</script>
 
 </html>

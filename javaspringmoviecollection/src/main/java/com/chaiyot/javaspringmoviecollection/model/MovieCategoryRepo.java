@@ -1,5 +1,6 @@
 package com.chaiyot.javaspringmoviecollection.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -106,73 +107,30 @@ public class MovieCategoryRepo {
 	}
 	
 	
-	
-	
-	public HashMap<Integer, List<ShowMovieCategory>> findAllMov() {
+	public  List<ShowMovieCategory> findAllMov() {
 
 		try {
-            String sql = "SELECT c.category_id,c.category, mc.movies_id, m.moviename, m.posterimage  FROM "
+            String sql = "SELECT GROUP_CONCAT(c.category) as category, mc.movies_id, m.moviename, m.posterimage  FROM "
             		+ "categories c JOIN movies_categories mc ON mc.category_id = c.category_id "
-            		+ "JOIN movies m ON mc.movies_id = m.movies_id";
+            		+ "JOIN movies m ON mc.movies_id = m.movies_id WHERE m.deleted = 0 GROUP BY movies_id";
 			Query query = entityManager.createNativeQuery(sql);
 
 			List<Object[]> list = query.getResultList();
-			HashMap<Integer, List<ShowMovieCategory>> showmovcat = new HashMap<>();
-			
-//			List<MovCategory> mclist = new ArrayList<MovCategory>();
-			int index = 0;
-			 String category= "";
-			int key = 0;	
-			for (int i = 0 ; i < list.size();i++) {
 
 				
-				if(key == 0) {			
-					key =  (int) list.get(i)[2];
-				}else if(key !=  (int) list.get(i)[2] ) {
+			List<ShowMovieCategory> listmovcat = new ArrayList<>();
+			for (Object[] obj : list) {
+				ShowMovieCategory movcat = new ShowMovieCategory();
+				movcat.setMovies_id((int) obj[1]);
+				movcat.setMoviename((String) obj[2]);
+				movcat.setPosterimage((String) obj[3]);
+				movcat.setCategory((String) obj[0]);
 				
-					List<ShowMovieCategory> listmovcat = new ArrayList<>();
-				
-					
-					ShowMovieCategory movcat = new ShowMovieCategory();
-					movcat.setCategory(category.substring(0,category.length()-3));
-					movcat.setMovies_id((int)list.get(i-1)[2]);
-					movcat.setMoviename((String) list.get(i-1)[3]);
-					movcat.setPosterimage((String)list.get(i-1)[4]);
-					listmovcat.add(movcat);
-
-					showmovcat.put( (int) list.get(i-1)[2] , listmovcat);
-					System.out.println("key !=  (int) list.get(i)[2] "+(int) list.get(i-1)[2]);
-					category= "";
-					key =  (int) list.get(i)[2];
-					
-					
-				}else if( i == list.size()-1 ) {
-					List<ShowMovieCategory> listmovcat = new ArrayList<>();
-					category += (String) list.get(i)[1];
-	
-					ShowMovieCategory movcat = new ShowMovieCategory();
-					movcat.setCategory(category);
-					movcat.setMovies_id((int)list.get(i)[2]);
-					movcat.setMoviename((String) list.get(i)[3]);
-					movcat.setPosterimage((String)list.get(i)[4]);
-					listmovcat.add(movcat);
-					
-						
-						
-					showmovcat.put( (int) list.get(i)[2] , listmovcat);
-					
-					System.out.println("i == list.size()-1 "+(int) list.get(i)[2]);
-				}
-				
-				category += (String) list.get(i)[1]+" , ";
-
-			
-				
-				index++;
+				listmovcat.add(movcat);
 			}
 	
 	
-			return showmovcat;
+			return  listmovcat ;
 		} catch (Exception e) {
 			System.out.println(e);
 			return null;
@@ -205,4 +163,35 @@ public class MovieCategoryRepo {
 		query.executeUpdate();
 		return ad;
 	}
+
+	public List<ShowMovieCategory> searchMovie(String movie) {
+
+		try {
+            String sql = "SELECT m.movies_id, m.moviename, m.posterimage, GROUP_CONCAT(c.category) as category FROM categories c "
+            		+ "	JOIN movies_categories mc ON mc.category_id = c.category_id "
+            		+ " JOIN movies m ON mc.movies_id = m.movies_id"
+            		+ "	WHERE m.moviename LIKE '%" + movie + "%'"
+            		+ " GROUP BY m.moviename;";
+			Query query = entityManager.createNativeQuery(sql);
+
+			List<Object[]> list = query.getResultList();
+			List<ShowMovieCategory> movcatlist = new ArrayList<ShowMovieCategory>();
+			for (Object[] obj : list) {
+				ShowMovieCategory movcat = new ShowMovieCategory();
+				movcat.setMovies_id((int) obj[0]);
+				movcat.setMoviename((String) obj[1]);
+				movcat.setPosterimage((String) obj[2]);
+				movcat.setCategory((String) obj[3]);
+				
+				movcatlist.add(movcat);
+			}
+			return movcatlist;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+
+	}
+	
+
 }

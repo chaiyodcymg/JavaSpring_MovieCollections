@@ -58,7 +58,7 @@ public class MainController {
 		List<Categories> cat = catRepo.findAll();
 		model.addAttribute("listcat",cat);
 		
-		 HashMap<Integer, List<ShowMovieCategory>> movcat = movcatRepo.findAllMov();
+		 List<ShowMovieCategory> movcat = movcatRepo.findAllMov();
 		 model.addAttribute("listmovcat", movcat);
 		
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -118,6 +118,8 @@ public class MainController {
 		
 		List<Actors> actor = actrepo.findAll();
 		model.addAttribute("actlist", actor);
+		List<Categories> cat = catRepo.findAll();
+		model.addAttribute("listcat",cat);
 		
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 //		System.out.println(img);

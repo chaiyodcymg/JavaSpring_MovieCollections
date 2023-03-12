@@ -1,7 +1,7 @@
+
 .navbar {
     /* height: 150px; */
 }
-
 .sub {
     display: none;
 }
@@ -12,7 +12,7 @@ footer {
 
 
 a {
-    text-decoration: none !important;
+    text-decoration: none;
 }
 
 span {
@@ -62,7 +62,6 @@ span {
 .movie-name {
     display: flex;
     justify-content: center;
-
 }
 
 
@@ -99,15 +98,25 @@ span {
     width: 9rem;
 }
 
-.mov-pic {
+.mov-pic-a{
+    color: #656565;
+}
+
+.mov-pic{
     height: 300px;
     transition: 0.5s;
     margin: 10px 1rem;
     color: #656565;
     margin-bottom: -20px;
 }
-
-
+.search-mov-title{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.mov-search{
+    width: 50vw;
+    margin-bottom: 3vh;
+}
 
 .mov-pic:hover {
     transform: scale(1.3) translateY(-30px);
@@ -115,7 +124,6 @@ span {
     background: rgb(35, 74, 28);
     border-bottom: 5px solid #3d7d30;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-
 }
 
 .mov-pic:hover .wrap-pic {
@@ -133,7 +141,7 @@ span {
     padding-right: 0.5rem;
 }
 
-.movtype {
+.movtype{
     display: none;
     transition: 1.5s;
     /* text-align: center; */
@@ -143,10 +151,31 @@ span {
     font-size: x-small;
     margin-bottom: 0.5rem;
 }
+.mov-edit-div{
+    display: none;
+    transition: 1.5s;
+    /* text-align: center; */
+    width: 9rem;
+    font-size: x-small;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
 
 .mov-pic:hover .movtype {
     display: block;
     color: white;
+}
+
+.mov-pic:hover .mov-edit-div {
+    display: flex;
+    color: white;
+}
+
+.mov-edit{
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: x-small;
 }
 
 .mov-pic:hover .movie-name {
@@ -455,14 +484,18 @@ span {
     flex-wrap: wrap;
     padding: 0;
 }
-
+.li-actor-box {
+	overflow: hidden;
+	margin: 10px auto;
+}
 .actor-box {
-    width: 300px;
-    height: 200px;
-    margin: 10px auto;
+    width: 200px;
+    height: 275px;
+    
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.595);
     overflow: hidden;
     transition: 0.8s;
+    position: relative;
 }
 
 .actor-box img {
@@ -474,23 +507,26 @@ span {
 .actor-box:before {
     content: "";
     position: absolute;
-    width: 300px;
-    height: 200px;
+    width: 200px;
+    height: 275px;
     transition: all 0.5s;
     background: rgba(0, 0, 0, 0.575);
 }
 
 .actor-name {
-    z-index: 1;
-    position: absolute;
     color: white;
     font-size: 22px;
     transition: 0.5s;
-    top: 50%;
-    margin-left: 5.5rem;
-
+    margin-bottom: 0 !important;
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    text-align: left !important;
 }
-
+.edit-actor{
+    width: 10vw;
+    margin-right: 0.5rem;
+}
 
 .actor-box:hover {
     transition: 0.5s;
@@ -555,6 +591,4 @@ span {
 html {
     scroll-behavior: smooth;
   }
-  
-  
 

@@ -5,158 +5,10 @@ body {
   overflow-x: hidden;
 }
 
-#horizontal-nav {
-  display: grid;
-  grid-template: auto/auto 1fr auto;
-  align-items: center;
-}
 
-#horizontal-nav * {
-  box-sizing: border-box;
-}
-
-#horizontal-nav ul,
-#horizontal-nav li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-#horizontal-nav .btn-prev,
-#horizontal-nav .btn-next {
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-#horizontal-nav .btn-prev.hidden,
-#horizontal-nav .btn-next.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-#horizontal-nav .btn-prev,
-#horizontal-nav .btn-next,
-#horizontal-nav .btn-prev svg,
-#horizontal-nav .btn-next svg {
-  width: 40px;
-  outline: none;
-}
-
-#horizontal-nav .btn-prev {
-  transform: scale(-1, 1);
-}
-
-#horizontal-nav .btn-prev svg,
-#horizontal-nav .btn-next svg {
-  width: 40px;
-}
-
-.menu-wrap {
-  width: 100%;
-  position: relative;
-  height: 40px;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 300%, 0% 500px);
-  --border: 1px solid #d2e6d8;
-}
-
-.menu {
-  display: grid;
-  grid-template: auto/auto;
-  grid-auto-flow: column;
-  grid-auto-columns: auto;
-  align-items: start;
-  gap: 14px;
-  transition: all 0.3s ease;
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-height: 40px;
-}
-
-.pill {
-  color: hsl(142, 100%, 94%);
-  background-color: #effaf2;
-  border: var(--border);
-  border-radius: 15px;
-  font-size: 14px;
-  font-weight: 400;
-  padding: 10px !important;
-}
-
-#horizontal-nav .list-item {
-  position: relative;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-#horizontal-nav .list-item a {
-  white-space: nowrap;
-  color: hsl(141, 15%, 50%);
-  display: block;
-  text-decoration: none;
-  position: relative;
-  z-index: 1;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-#horizontal-nav .list-item:hover > a {
-  background-color: #def1e3;
-}
-
-#horizontal-nav .list-item.has-submenu:hover > a {
-  border-radius: 15px 15px 0 0;
-}
-
-#horizontal-nav .list-item.has-submenu:hover::after {
-  content: "";
-  width: calc(100% - 2px);
-  height: 6px;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  transform: translatey(3px);
-  z-index: 1;
-  border-left: var(--border);
-  border-right: var(--border);
-  background-color: #def1e3;
-}
-
-#horizontal-nav .dropdown:after {
-  content: " \25bc";
-}
-
-.sub-menu {
-  opacity: 0;
-  visibility: hidden;
-  position: absolute;
-  left: 0;
-  top: 50px;
-  z-index: 1;
-  transition: all 0.25s ease;
-  transform: translatey(-10px);
-  display: grid;
-  grid-template: auto/1fr;
-  gap: 7px;
-  border-radius: 0 15px 15px;
-  background-color: #def1e3;
-  min-width: calc(100% + 7px);
-}
-
-#horizontal-nav .list-item:hover .sub-menu {
-  opacity: 1;
-  visibility: visible;
-}
-
-#horizontal-nav .list-item .sub-menu li:hover a {
-  color: #000 !important;
-}
-
-
-/****************************************************************************************************/
 .navbar {
     /* height: 150px; */
 }
-
 .sub {
     display: none;
 }
@@ -212,6 +64,13 @@ span {
 
 }
 
+/* listแสดงปี */
+.listyear,
+.movie-name {
+    display: flex;
+    justify-content: center;
+}
+
 
 .moviecard {
     display: flex;
@@ -246,15 +105,25 @@ span {
     width: 9rem;
 }
 
-.mov-pic {
+.mov-pic-a{
+    color: #656565;
+}
+
+.mov-pic{
     height: 300px;
     transition: 0.5s;
     margin: 10px 1rem;
     color: #656565;
     margin-bottom: -20px;
 }
-
-
+.search-mov-title{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.mov-search{
+    width: 50vw;
+    margin-bottom: 3vh;
+}
 
 .mov-pic:hover {
     transform: scale(1.3) translateY(-30px);
@@ -262,7 +131,6 @@ span {
     background: rgb(35, 74, 28);
     border-bottom: 5px solid #3d7d30;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-
 }
 
 .mov-pic:hover .wrap-pic {
@@ -280,7 +148,7 @@ span {
     padding-right: 0.5rem;
 }
 
-.movtype {
+.movtype{
     display: none;
     transition: 1.5s;
     /* text-align: center; */
@@ -290,10 +158,31 @@ span {
     font-size: x-small;
     margin-bottom: 0.5rem;
 }
+.mov-edit-div{
+    display: none;
+    transition: 1.5s;
+    /* text-align: center; */
+    width: 9rem;
+    font-size: x-small;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
 
 .mov-pic:hover .movtype {
     display: block;
     color: white;
+}
+
+.mov-pic:hover .mov-edit-div {
+    display: flex;
+    color: white;
+}
+
+.mov-edit{
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: x-small;
 }
 
 .mov-pic:hover .movie-name {
@@ -604,12 +493,13 @@ span {
 }
 
 .actor-box {
-    width: 300px;
-    height: 200px;
+    width: 200px;
+    height: 275px;
     margin: 10px auto;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.595);
     overflow: hidden;
     transition: 0.8s;
+    position: relative;
 }
 
 .actor-box img {
@@ -621,23 +511,26 @@ span {
 .actor-box:before {
     content: "";
     position: absolute;
-    width: 300px;
-    height: 200px;
+    width: 200px;
+    height: 275px;
     transition: all 0.5s;
     background: rgba(0, 0, 0, 0.575);
 }
 
 .actor-name {
-    z-index: 1;
-    position: absolute;
     color: white;
     font-size: 22px;
     transition: 0.5s;
-    top: 50%;
-    margin-left: 5.5rem;
-
+    margin-bottom: 0 !important;
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    text-align: left !important;
 }
-
+.edit-actor{
+    width: 10vw;
+    margin-right: 0.5rem;
+}
 
 .actor-box:hover {
     transition: 0.5s;
@@ -702,5 +595,4 @@ span {
 html {
     scroll-behavior: smooth;
   }
-
 

@@ -44,6 +44,20 @@ public class ActorsRepo {
 		return ad;
 	}
 	
+	@Transactional
+	public void deleteMovByID(int id) {
+		try {
+			Query query = entityManager.createNativeQuery("UPDATE actors SET deleted = ? WHERE actors_id = ?");
+			query.setParameter(1, true);
+	        query.setParameter(2, id);
+	        query.executeUpdate();
+		    
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+    }
+	
 	public Actors findByUsernameAndPassword(String username, String password) {
 		try {
 			Query query = entityManager.createNativeQuery("SELECT * FROM actors WHERE username = ? AND password = ?", Actors.class);

@@ -1,10 +1,14 @@
 package com.chaiyot.javaspringmoviecollection.model;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.data.repository.CrudRepository;
@@ -136,6 +140,38 @@ public class MoviesActorsRepo {
 
 		query.executeUpdate();
 		return ad;
+	}
+	
+	
+	public List<RoleActor> searchActor(String actor) {
+
+		try {
+            String sql = "SELECT a.actors_id, a.actor_name, a.image, a.birthday, a.gender, a.deleted FROM actors a "
+            		+ "  JOIN movies_actors ma ON ma.actors_id = a.actors_id "
+            		+ "  WHERE ma.role LIKE '%" + actor + "%' OR a.actor_name LIKE '%" + actor + "%' "
+            		+ "  GROUP BY a.actor_name";
+			Query query = entityManager.createNativeQuery(sql);
+
+			List<Object[]> list = query.getResultList();
+			List<RoleActor> actorlist = new ArrayList<RoleActor>();
+			for (Object[] obj : list) {
+				RoleActor ract = new RoleActor();
+				ract.setActors_id((int) obj[0]);
+				ract.setActorName((String) obj[1]);
+				ract.setImage((String) obj[2]);
+				
+
+				ract.setBirthday((Date) obj[3]);
+				ract.setGender((String) obj[4]);
+				ract.setDeleted((Boolean) obj[5]);
+				actorlist.add(ract);
+			}
+			return actorlist;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+
 	}
 
 }

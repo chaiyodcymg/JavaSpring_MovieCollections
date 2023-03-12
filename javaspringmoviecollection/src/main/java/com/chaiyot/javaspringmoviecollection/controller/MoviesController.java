@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,7 +44,10 @@ public class MoviesController {
 	
 	@Autowired
 	private MovieCategoryRepo movcatRepo;
-
+	
+	@Autowired
+	private CategorieRepo catRepo;
+	
 	@PostMapping("/addmovies")
 	public String addmovie(@RequestParam("img") MultipartFile img,@RequestParam("poster") MultipartFile poster,
 			@RequestParam("moviename") String moviename, @RequestParam("category") List<Integer> categoryId,
@@ -190,7 +195,6 @@ public class MoviesController {
 		return "redirect:"+referer;
 	}
 
-	
 
 	@PostMapping("/editmovies")
 	public String editmovies(@RequestParam("img") MultipartFile img, HttpSession session,
@@ -323,4 +327,82 @@ public class MoviesController {
 
 		return "redirect:/";
 	}
+	
+	
+	@PostMapping("/editactor")
+	public String editactor(@RequestParam("img") MultipartFile img, HttpSession session,
+			@RequestParam("Actorname") String Actorname, @RequestParam("birthday") LocalDate birthday,
+			@RequestParam("actorgender") String actorgender, HttpServletRequest request,
+			@RequestParam("actors_id") int actors_id) {
+
+		if (!img.getOriginalFilename().equals("")) {
+			try {
+				List<MovieCategory> movcat = new ArrayList<>();
+				List<MoviesActors> movact = new ArrayList<>();
+				String Ranstr = RandomString.getAlphaNumericString(20)
+						+ GetExtensionFile.GetEx(img.getOriginalFilename());
+				
+		
+				File savefile = new ClassPathResource("static/img").getFile();
+//
+				Path path = Paths.get(savefile.getAbsolutePath() + File.separator + Ranstr);
+		
+			
+				Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+				
+				Actors act = actRepo.findById(actors_id);
+
+				act.setActorName(Actorname);
+				act.setBirthday(birthday);
+				act.setGender(actorgender);
+				act.setImage("img/" + Ranstr);
+				actRepo.save(act);
+
+				
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		} else {
+			try {
+				Actors act = actRepo.findById(actors_id);
+				act.setActorName(Actorname);
+				act.setBirthday(birthday);
+				act.setGender(actorgender);
+				actRepo.save(act);
+		
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+
+		}
+//		
+
+		return "redirect:/actorlist";
+	}
+
+	@GetMapping("/actorsearch")
+	public String actorsearch(@RequestParam("actor") String actor, Model model) {
+				
+		List<RoleActor> actorlist =  movactRepo.searchActor(actor);
+		model.addAttribute("actlist", actorlist);
+		model.addAttribute("searchact", actor);
+		
+		return "actorlist";
+		
+	}
+	
+	@GetMapping("/moviesearch")
+	public String moviesearch(@RequestParam("movie") String movie, Model model) {
+				
+		List<ShowMovieCategory> movcatlist =  movcatRepo.searchMovie(movie);
+		model.addAttribute("listmovcat", movcatlist);
+		model.addAttribute("searchmov", movie);
+		List<Categories> cat = catRepo.findAll();
+		model.addAttribute("listcat",cat);
+		
+		return "home";
+		
+	}
+
+
 }

@@ -92,6 +92,7 @@ public class AdminController {
 		return "editmovies";
 	}
 	
+	
 	@GetMapping("/deletemovies/{id}")
 	public String delete(HttpServletRequest request, Model model, HttpSession session, HttpServletResponse response,
 			@PathVariable Integer id) {
@@ -100,6 +101,16 @@ public class AdminController {
 		
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		return "redirect:/";
+	}
+	
+	@GetMapping("/deleteactors/{id}")
+	public String deleteactor(HttpServletRequest request, Model model, HttpSession session, HttpServletResponse response,
+			@PathVariable Integer id) {
+		
+		actorRepo.deleteMovByID(id);
+		
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		return "redirect:/actorlist";
 	}
 
 	@GetMapping("/login")
