@@ -1,4 +1,3 @@
-
 .navbar {
     /* height: 150px; */
 }
@@ -158,8 +157,9 @@ span {
     width: 9rem;
     font-size: x-small;
     position: absolute;
-    right: 0;
+    /* right: 0; */
     bottom: 0;
+    margin-left: 10%;
 }
 
 .mov-pic:hover .movtype {
@@ -484,14 +484,11 @@ span {
     flex-wrap: wrap;
     padding: 0;
 }
-.li-actor-box {
-	overflow: hidden;
-	margin: 10px auto;
-}
+
 .actor-box {
     width: 200px;
     height: 275px;
-    
+    margin: 10px auto;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.595);
     overflow: hidden;
     transition: 0.8s;
@@ -517,15 +514,16 @@ span {
     color: white;
     font-size: 22px;
     transition: 0.5s;
-    margin-bottom: 0 !important;
+    margin-bottom: 0px !important;
+    padding: 5px;
     position: absolute;
     bottom: 0;
     left: 10px;
     text-align: left !important;
 }
 .edit-actor{
-    width: 10vw;
-    margin-right: 0.5rem;
+    /* width: 10vw;
+    margin-right: 0.5rem; */
 }
 
 .actor-box:hover {
@@ -541,6 +539,22 @@ span {
     color: #1e512800;
     /* color: #ffffff00; */
     transition: 0.5s;
+}
+
+.actor-box:hover .btn-group {
+    display: block;
+    transition: 0.5s;
+}
+
+.btn-group {
+    position: absolute;
+    display: none;
+    /* bottom: 0; */
+    /* margin: 3em ; */
+    top: 120px;
+    left: 45px;
+    transition: 0.5s;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.441);
 }
 
 #filter {
