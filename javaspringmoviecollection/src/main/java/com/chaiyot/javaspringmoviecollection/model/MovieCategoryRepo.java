@@ -137,6 +137,38 @@ public class MovieCategoryRepo {
 		}
 
 	}
+	
+	public  List<ShowMovieCategory> findMovbyCat(int id) {
+
+		try {
+            String sql = "SELECT c.category, mc.movies_id, m.moviename, m.posterimage  FROM categories c "
+            		+ " JOIN movies_categories mc ON mc.category_id = c.category_id "
+            		+ " JOIN movies m ON mc.movies_id = m.movies_id "
+            		+ " WHERE m.deleted = 0 AND c.category_id = ?";
+			Query query = entityManager.createNativeQuery(sql);
+			query.setParameter(1, id);
+			List<Object[]> list = query.getResultList();
+
+				
+			List<ShowMovieCategory> listmovcat = new ArrayList<>();
+			for (Object[] obj : list) {
+				ShowMovieCategory movcat = new ShowMovieCategory();
+				movcat.setMovies_id((int) obj[1]);
+				movcat.setMoviename((String) obj[2]);
+				movcat.setPosterimage((String) obj[3]);
+				movcat.setCategory((String) obj[0]);
+				
+				listmovcat.add(movcat);
+			}
+	
+	
+			return  listmovcat ;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+
+	}
 
 	@Transactional
 	public List<MovieCategory> save(List<MovieCategory> ad) {
