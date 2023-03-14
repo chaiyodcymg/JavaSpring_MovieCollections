@@ -105,24 +105,22 @@
 
 		<ul class="actor-list">
 			<c:forEach items="${actlist}" var="act">
-				
-			
-				<li class="li-actor-box">
-				<c:if test="${sessionScope.session != null}">
-					<button type="button" class="btn add-actor-btn"
-						data-bs-toggle="modal"
-						data-bs-target="#ActorModal${act.actors_id}">แก้ไขนักแสดง</button>
-					<a href="admin/deleteactors/${act.actors_id}"> ลบ </a>
-				</c:if>
-				<a href="../actor/${act.actors_id}">
-				<div class="actor-box">
-				
+			<a href="../actor/${act.actors_id}">
+				<li class="actor-box">
 						<p class="actor-name">${act.actorName}</p> 
-						<img src="../${act.image}" alt="#">
+						<img src="../${act.image}" alt="">
 				
-				</div>
-				</a>
+					<div class="btn-group">
+						<c:if test="${sessionScope.session != null}">
+							<a class="edit-actor btn btn-primary"
+								data-bs-toggle="modal"
+								data-bs-target="#ActorModal${act.actors_id}">แก้ไขนักแสดง</a>
+								
+							<a href="admin/deleteactors/${act.actors_id}" class="btn btn-danger delete-actor"> ลบ </a>
+						</c:if> 
+					</div>
 				</li>
+			</a>
 
 				<!-- Modal -->
 				<div class="modal fade " id="ActorModal${act.actors_id}"
@@ -198,7 +196,7 @@
 						}
 					}
 				</script>
-			
+
 
 			</c:forEach>
 
@@ -216,8 +214,7 @@
 		crossorigin="anonymous">
 		
 	</script>
-	<script src="https://kit.fontawesome.com/7ef6297bb4.js"
-		crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/7ef6297bb4.js" crossorigin="anonymous"></script>
 
 
 
@@ -225,18 +222,12 @@
 
 	<footer class="py-3 my-4 mt-5">
 		<ul class="nav justify-content-center border-bottom pb-3 mb-3">
-			<li class="nav-item"><a href="#"
-				class="nav-link px-2 text-muted">Home</a></li>
-			<li class="nav-item"><a href="#"
-				class="nav-link px-2 text-muted">Features</a></li>
-			<li class="nav-item"><a href="#"
-				class="nav-link px-2 text-muted">Pricing</a></li>
-			<li class="nav-item"><a href="#"
-				class="nav-link px-2 text-muted">FAQs</a></li>
-			<li class="nav-item"><a href="#"
-				class="nav-link px-2 text-muted">About</a></li>
+			<li class="nav-item"><a href="/"
+				class="nav-link px-2 text-muted">หน้าแรก</a></li>
+			<li class="nav-item"><a href="/actorlist"
+				class="nav-link px-2 text-muted">นักแสดง</a></li>
 		</ul>
-		<p class="text-center text-muted">© 2022 Company, Inc</p>
+		<p class="text-center text-muted">© 2023 CollectMovie, Inc</p>
 	</footer>
 
 </body>

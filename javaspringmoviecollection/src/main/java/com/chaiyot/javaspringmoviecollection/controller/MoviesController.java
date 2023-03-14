@@ -18,6 +18,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -401,6 +402,21 @@ public class MoviesController {
 		model.addAttribute("listcat",cat);
 		
 		return "home";
+		
+	}
+	
+	@GetMapping("/category/{id}")
+	public String moviecategory(@PathVariable Integer id, Model model, HttpServletResponse response) {
+				
+		List<Categories> cat = catRepo.findAll();
+		model.addAttribute("listcat",cat);
+		
+		 List<ShowMovieCategory> movcat = movcatRepo.findMovbyCat(id);
+		 model.addAttribute("listmovcat", movcat);
+		
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		
+		return "show_moviebycategory";
 		
 	}
 

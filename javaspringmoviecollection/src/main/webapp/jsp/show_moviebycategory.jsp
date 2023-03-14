@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kodchasan">
 
  <c:if test="${searchmov == null}">
-      <link href="css/home.css" rel="stylesheet">
+      <link href="../../css/home.css" rel="stylesheet">
  </c:if>
  <c:if test="${searchmov != null}">
       <link href="../../css/home.css" rel="stylesheet">
@@ -56,7 +56,7 @@
                 <!-- Left links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/">หน้าแรก</a>
+                        <a class="nav-link" href="/">หน้าแรก</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/actorlist">นักแสดง</a>
@@ -68,7 +68,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                               <c:forEach items="${listcat}" var="cat">
-                               	<li><a class="dropdown-item" href="movie/category/${cat.category_id}" >${cat.category}</a></li>
+                               	<li><a class="dropdown-item" href="../../movie/category/${cat.category_id}" >${cat.category}</a></li>
                               </c:forEach>
                             </ul>
                           </div>
@@ -77,11 +77,11 @@
                 <!-- Left links -->
                 <div class="d-flex align-items-center">
                     <c:if test="${sessionScope.session != null}">
-								<a href="admin/logout" class="signin-btn">Logout</a>
+								<a href="../../admin/logout" class="signin-btn">Logout</a>
 							</c:if>
 							
 							<c:if test="${sessionScope.session == null}">
-								 <a href="admin/login" class="signin-btn">Login</a>
+								 <a href="../../admin/login" class="signin-btn">Login</a>
 							</c:if>
                 </div>
 
@@ -92,7 +92,7 @@
     </nav>
     <!-- Navbar -->
 	
-	<form class="d-flex" role="search" action="/movie/moviesearch">
+<form class="d-flex" role="search" action="../../movie/moviesearch">
 		 <c:if test="${searchmov != null}">
          		<input type="search" id="filter" name="movie" value="${searchmov}" class="shadow-lg mt-3 mb-4" placeholder="ค้นหาภาพยนตร์"/>
          </c:if>
@@ -112,10 +112,10 @@
 		<div class="movcard">
 			<c:forEach items="${listmovcat}" var="mov">
 			<div class="mov-pic">
-                <a href="movie_detail/${mov.movies_id}" class="mov-pic-a">
+                <a href="../../movie_detail/${mov.movies_id}" class="mov-pic-a">
                     <div class="wrap-pic">
                         <c:if test="${searchmov == null}">
-         					<img src="${mov.posterimage}" class="img-mov" alt="...">
+         					<img src="../../${mov.posterimage}" class="img-mov" alt="...">
          				</c:if>
 						<c:if test="${searchmov != null}">
          					<img src="../${mov.posterimage}" class="img-mov" alt="...">
@@ -131,8 +131,8 @@
                 </a>
                 <div class="mov-edit-div">
 	                <c:if test="${sessionScope.session != null}">
-						<a class="mov-edit btn btn-primary" href="admin/editmovies/${mov.movies_id}">แก้ไข</a>
-	                    <a class="mov-edit btn btn-danger" href="admin/deletemovies/${mov.movies_id}">ลบ</a>
+						<a class="mov-edit btn btn-primary" href="../../admin/editmovies/${mov.movies_id}">แก้ไข</a>
+	                    <a class="mov-edit btn btn-danger" href="../../admin/deletemovies/${mov.movies_id}">ลบ</a>
 					</c:if>
                 </div>
             </div>
@@ -142,7 +142,7 @@
 		</div>
 	</div>
 
-	<a href="admin/addmovies" class="float"> <i
+	<a href="../../admin/addmovies" class="float"> <i
 		class="fa fa-plus my-float"></i>
 	</a>
 
