@@ -92,7 +92,7 @@
     </nav>
     <!-- Navbar -->
 	
-<form class="d-flex" role="search" action="/movie/moviesearch">
+	<form class="d-flex" role="search" action="/movie/moviesearch">
 		 <c:if test="${searchmov != null}">
          		<input type="search" id="filter" name="movie" value="${searchmov}" class="shadow-lg mt-3 mb-4" placeholder="ค้นหาภาพยนตร์"/>
          </c:if>
