@@ -1,10 +1,15 @@
 package com.chaiyot.javaspringmoviecollection.controller;
 
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +28,7 @@ import com.chaiyot.javaspringmoviecollection.model.MovieDetail;
 import com.chaiyot.javaspringmoviecollection.model.Movies;
 import com.chaiyot.javaspringmoviecollection.model.MoviesActorsRepo;
 import com.chaiyot.javaspringmoviecollection.model.MoviesRepo;
+import com.chaiyot.javaspringmoviecollection.model.RoleActor;
 import com.chaiyot.javaspringmoviecollection.model.ShowMovieCategory;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -77,6 +83,8 @@ public class MainController {
 		Object movdetail = movcatRepo.findDetail(id);
 		model.addAttribute("detail", movdetail);
 		
+		List<RoleActor>  ra =movactRepo.findAllID(id);
+		model.addAttribute("Listactor", ra);
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 //		System.out.println(img);
 		return "movie_detail";
@@ -101,7 +109,12 @@ public class MainController {
 			act.setGender("หญิง");
 		}
 		model.addAttribute("gender",act.getGender());
-		
+		model.addAttribute("image",	act.getImage());
+
+	      Date sqlDate = Date.valueOf(act.getBirthday());
+	        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM G yyyy", new Locale("th", "TH"));
+	        String thaiDate = formatter.format(sqlDate);
+		model.addAttribute("birthday",	thaiDate);
 		List<ShowMovieCategory> actmov = movactRepo.findActormovie(id);
 		model.addAttribute("actmovlist",actmov);
 		

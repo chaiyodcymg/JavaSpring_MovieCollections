@@ -9,14 +9,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kodchasan">
 
  <c:if test="${searchmov == null}">
-      <link href="css/home.css" rel="stylesheet">
+      <link href="css/style.css" rel="stylesheet">
  </c:if>
  <c:if test="${searchmov != null}">
-      <link href="../../css/home.css" rel="stylesheet">
+      <link href="../../css/style.css" rel="stylesheet">
  </c:if>
 
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Labrada">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kodchasan">
 
 
 <link
@@ -91,23 +90,44 @@
         <!-- Container wrapper -->
     </nav>
     <!-- Navbar -->
-	
-	<form class="d-flex" role="search" action="/movie/moviesearch">
-		 <c:if test="${searchmov != null}">
-         		<input type="search" id="filter" name="movie" value="${searchmov}" class="shadow-lg mt-3 mb-4" placeholder="ค้นหาภาพยนตร์"/>
-         </c:if>
+    
+	 <%-- <h3 style="margin-top: 10vh;" class="search-mov-title">ค้นหาภาพยนตร์</h3>
+        <div class="listyear">
+            <form class="d-flex mov-search" action="/movie/moviesearch">
+               
+                 <c:if test="${searchmov != null}">
+         			<input class="form-control me-2 " type="search" id="filter" name="movie" value="${searchmov}"  placeholder="ค้นหาภาพยนตร์"/>
+        		 </c:if>
+				<c:if test="${searchmov == null}">
+					<input class="form-control me-2 " type="search" id="filter" name="movie"  placeholder="ค้นหาภาพยนตร์" />
+				</c:if>
+               <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            
+           
+        </div>
+        
+		   <c:if test="${searchmov != null}">
+         		<p c> ค้นหา '${searchmov}' ใน ภาพยนตร์ </p>
+         	</c:if> --%>
+            
+          <div class="container mt-5 mb-5">
+		<h3>ภาพยนตร์</h1>
+		<form class="d-flex" role="search" action="/movie/moviesearch">
+			<c:if test="${searchmov != null}">
+				<input type="search" id="filter" name="movie" value="${searchmov}"
+					class="shadow-lg mt-3 mb-4" placeholder="ค้นหาภาพยนตร์" />
+			</c:if>
 			<c:if test="${searchmov == null}">
 				<input type="search" id="filter" name="movie"
 					class="shadow-lg mt-3 mb-4" placeholder="ค้นหาภาพยนตร์" />
 			</c:if>
 
 		</form>
-         <c:if test="${searchmov != null}">
-         		<p> ค้นหา '${searchmov}' ใน ภาพยนตร์ </p>
-         </c:if>
-
-	
-
+		<c:if test="${searchmov != null}">
+			<p>ค้นหา '${searchmov}' ใน ภาพยนตร์</p>
+		</c:if>
+		 </div>
 	<div class="moviecard">
 		<div class="movcard">
 			<c:forEach items="${listmovcat}" var="mov">
@@ -125,7 +145,7 @@
                         <p class="moviename-text">${mov.moviename}</p>
                     </div>
                     <p class="movtype">
-                        <b>categories:</b> ${mov.category}
+                        <b>ประเภท:</b> ${mov.category}
                     </p>
                     
                 </a>
@@ -141,10 +161,12 @@
 			
 		</div>
 	</div>
-
-	<a href="admin/addmovies" class="float"> <i
-		class="fa fa-plus my-float"></i>
-	</a>
+	<c:if test="${sessionScope.session != null}">		
+		<a href="/admin/addmovies" class="float"> <i
+			class="fa fa-plus my-float"></i>
+		</a>
+	</c:if>
+	
 
 	<!-- <script>
         const moviePics = document.querySelectorAll('.mov-pic');
@@ -170,18 +192,12 @@
 
 	<footer class="py-3 my-4 mt-5">
 		<ul class="nav justify-content-center border-bottom pb-3 mb-3">
-			<li class="nav-item"><a href="#"
-				class="nav-link px-2 text-muted">Home</a></li>
-			<li class="nav-item"><a href="#"
-				class="nav-link px-2 text-muted">Features</a></li>
-			<li class="nav-item"><a href="#"
-				class="nav-link px-2 text-muted">Pricing</a></li>
-			<li class="nav-item"><a href="#"
-				class="nav-link px-2 text-muted">FAQs</a></li>
-			<li class="nav-item"><a href="#"
-				class="nav-link px-2 text-muted">About</a></li>
+			<li class="nav-item"><a href="/"
+				class="nav-link px-2 text-muted">หน้าแรก</a></li>
+			<li class="nav-item"><a href="/actorlist"
+				class="nav-link px-2 text-muted">นักแสดง</a></li>
 		</ul>
-		<p class="text-center text-muted">© 2022 Company, Inc</p>
+		<p class="text-center text-muted">© 2023 CollectMovie, Inc</p>
 	</footer>
 </body>
 

@@ -11,7 +11,6 @@ footer {
 
 
 a {
-    text-decoration: none;
 }
 
 span {
@@ -84,8 +83,10 @@ span {
 
 .img-mov {
     width: 9rem;
+     height:215px;
     margin-bottom: 5px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+   
 }
 
 .wrap-pic {
@@ -115,6 +116,7 @@ span {
 .mov-search{
     width: 50vw;
     margin-bottom: 3vh;
+   
 }
 
 .mov-pic:hover {
@@ -247,10 +249,10 @@ span {
 }
 
 .img-actor img {
-    width: 100%;
-    height: max-content;
-    max-width: fit-content;
-
+    width: 200px;
+    height: 200px;
+ 
+	object-fit: cover;
 }
 
 .a-act {
@@ -541,20 +543,18 @@ span {
     transition: 0.5s;
 }
 
-.actor-box:hover .btn-group {
+.actor-box:hover .btn-group-ed{
     display: block;
     transition: 0.5s;
 }
 
-.btn-group {
+.btn-group-ed{
     position: absolute;
-    display: none;
-    /* bottom: 0; */
-    /* margin: 3em ; */
-    top: 120px;
-    left: 45px;
-    transition: 0.5s;
-    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.441);
+    display: none ;
+    top: 120px ;
+    left: 45px ;
+    transition: 0.5s  ;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.441) ;
 }
 
 #filter {

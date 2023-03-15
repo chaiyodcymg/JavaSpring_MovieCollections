@@ -20,7 +20,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">รหัสผ่าน</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter password" name="password"  value="1234">
+                        <input type="password" class="form-control" id="password" placeholder="Enter password" name="password"  value="@admin1234">
                     </div>
                     <button type="submit" class="submit-btn" style="width: 100%;">ยืนยัน</button>
                 </form>

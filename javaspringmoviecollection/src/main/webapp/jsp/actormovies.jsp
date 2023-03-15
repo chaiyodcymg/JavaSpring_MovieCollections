@@ -20,11 +20,14 @@
 <!-- jQuery library -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+	
 </head>
 <body>
 
 	<div class="container-md mt-5 p-5">
         <div class="text-center mt-3 mb-3 actor-preview">
+        <img src="../${image}" style="width:250px;height:350px" class="img-actor"/>
             <h1>${name}</h1>
             <div class="actor-info">
                 <div class="m-3">
@@ -35,7 +38,15 @@
                     <span class="d-block fs-4">เพศ</span>
                     <span> ${gender} </span>
                 </div>
+             <div class="m-3">
+                    <span class="d-block fs-4">วันเดือนปีเกิด</span>
+                    <span> ${birthday} </span>
+                </div>
+               
             </div>
+        </div>
+  		<div class="my-3 text-center">
+            <h3>ผลงานที่แสดง</h3>
         </div>
         <div class="movie-act">
             <div class="moviecard">
@@ -47,7 +58,7 @@
                         <div class="movie-name">
                             <p class="moviename-text">${actmov.moviename}</p>
                         </div>
-                        <p class="movtype"><b>categories:</b> ${actmov.category}</p>
+                        <p class="movtype"><b>ประเภท:</b> ${actmov.category}</p>
                     </a>
                 </c:forEach>
                     
@@ -56,6 +67,14 @@
             </div>
         </div>
     </div>
+<script src="
+https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js
+"></script>
+<script type="text/javascript">
+let eventBox = document.querySelector(".img-actor");
 
+VanillaTilt.init(eventBox);
+
+</script>
 </body>
 </html>

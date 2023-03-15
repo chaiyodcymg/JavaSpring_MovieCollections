@@ -387,7 +387,8 @@ public class MoviesController {
 		List<RoleActor> actorlist =  movactRepo.searchActor(actor);
 		model.addAttribute("actlist", actorlist);
 		model.addAttribute("searchact", actor);
-		
+		List<Categories> cat = catRepo.findAll();
+		model.addAttribute("listcat",cat);
 		return "actorlist";
 		
 	}
@@ -414,6 +415,8 @@ public class MoviesController {
 		 List<ShowMovieCategory> movcat = movcatRepo.findMovbyCat(id);
 		 model.addAttribute("listmovcat", movcat);
 		
+		 Categories catename = catRepo.findById(id);
+		 model.addAttribute("catename", catename );
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		
 		return "show_moviebycategory";

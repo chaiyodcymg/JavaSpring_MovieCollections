@@ -49,11 +49,6 @@ public class AdminController {
 	@Autowired
 	MovieCategoryRepo movcatRepo;
 
-	PasswordEncoder Encode;
-
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
 
 	@GetMapping("/addmovies")
 	public String home(HttpServletRequest request, Model model, HttpSession session, HttpServletResponse response) {
@@ -124,39 +119,42 @@ public class AdminController {
 
 	@PostMapping("/login")
 	public String adminlogin(Model model, HttpSession session, @ModelAttribute Admin admin) {
-//		  session.setAttribute("user", "pack");
-//	      String myAttribute = (String) session.getAttribute("user");
-//	      System.out.println( myAttribute );
-//		
-//	  String encode =	passwordEncoder().encode(admin.getPassword());
-//		
-//	  System.out.println("Admin = "+encode );
-//	  assertTrue(passwordEncoder().matches(encode, encode)); /
- 
-		Boolean status = false;
-		Admin ad = (Admin) repo.findByUsernameAndPassword(admin.getUsername(), admin.getPassword());
-		if (ad != null) {
-			System.out.println("Admin = " + ad.getUsername() + " " + ad.getPassword());
-			status = true;
-			session.setAttribute("session", ad.getAdmin_id());
-			model.addAttribute("status", status);
-			return "redirect:/admin/addmovies";
-		} else {
-			System.out.println("null");
-			model.addAttribute("status", status);
-			return "redirect:/admin/login";
-		}
-//		
+
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encodedPassword = encoder.encode(admin.getPassword());
+//		System.out.println("encodedPassword ="+encodedPassword );
+		
+
+		Admin ad = (Admin) repo.findByUsername(admin.getUsername());
+		
+		    if (ad  == null) {
+				System.out.println("null");
+
+				return "redirect:/admin/login";
+		    }
+		   
+		    if( encoder.matches(admin.getPassword(), ad.getPassword())) {
+
+				session.setAttribute("session", ad.getAdmin_id());
+				return "redirect:/";
+		    }else {
+		    	System.out.println("null");
+				return "redirect:/admin/login";
+		    }
+		    
+		   
+		
+	
 
 	}
 
 	@GetMapping("/logout")
-	public String logout(Model model, HttpSession session) {
+	public String logout(HttpServletRequest request,Model model, HttpSession session) {
 //		  session.setAttribute("user", "pack");
 //	      String myAttribute = (String) session.getAttribute("session");
 //	      System.out.println( myAttribute );
-
+		 String referer = request.getHeader("referer");
 		session.removeAttribute("session");
-		return "redirect:/admin/login";
+		return "redirect:/";
 	}
 }

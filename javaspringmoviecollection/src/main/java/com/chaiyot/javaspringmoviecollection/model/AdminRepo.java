@@ -42,11 +42,11 @@ public class AdminRepo {
 		return ad;
 	}
 	
-	public Admin findByUsernameAndPassword(String username, String password) {
+	public Admin findByUsername(String username) {
 		try {
-			Query query = entityManager.createNativeQuery("SELECT * FROM admin WHERE username = ? AND password = ?", Admin.class);
+			Query query = entityManager.createNativeQuery("SELECT * FROM admin WHERE username = ?", Admin.class);
 	        query.setParameter(1, username);
-	        query.setParameter(2, password);
+	  
 	        return (Admin) query.getSingleResult();
 		        
 		} catch (NoResultException e) {

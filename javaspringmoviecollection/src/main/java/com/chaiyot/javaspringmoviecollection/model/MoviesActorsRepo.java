@@ -65,15 +65,17 @@ public class MoviesActorsRepo {
 		try {
 
 			Query query = entityManager.createNativeQuery(
-					"SELECT ma.id, ma.role, a.actor_name, a.actors_id, ma.movies_id FROM movies_actors ma JOIN actors a ON ma.actors_id = a.actors_id WHERE ma.movies_id = ?");
+					"SELECT ma.id, ma.role, a.actor_name, a.actors_id, ma.movies_id, a.image FROM movies_actors ma JOIN actors a ON ma.actors_id = a.actors_id WHERE ma.movies_id = ?");
 			query.setParameter(1, id);
 			List<Object[]> list = query.getResultList();
 			List<RoleActor> ralist = new ArrayList<RoleActor>();
 			for (Object[] obj : list) {
 				RoleActor ra = new RoleActor();
-				ra.setActors_id((int) obj[3]);
+				ra.setActors_id((int) obj[0]);
 				ra.setRole((String) obj[1]);
+				ra.setActors_id((int) obj[3]);
 				ra.setActorName((String) obj[2]);
+				ra.setImage((String) obj[5]);
 				ralist.add(ra);
 			}
 			return ralist;

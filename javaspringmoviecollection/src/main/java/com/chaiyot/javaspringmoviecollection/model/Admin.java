@@ -15,6 +15,7 @@ public class Admin {
 	private String password;
 	
 	
+	
 	public Integer getAdmin_id() {
 		return admin_id;
 	}

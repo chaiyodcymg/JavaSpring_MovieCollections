@@ -34,7 +34,7 @@ public class Movies {
 	private String posterimage;
 
 	private String moviename;
-
+	@Column(columnDefinition="TEXT")
 	private String description;
 
 	private String releaseYear;

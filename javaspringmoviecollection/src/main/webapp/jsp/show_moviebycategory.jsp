@@ -9,10 +9,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kodchasan">
 
  <c:if test="${searchmov == null}">
-      <link href="../../css/home.css" rel="stylesheet">
+      <link href="../../css/style.css" rel="stylesheet">
  </c:if>
  <c:if test="${searchmov != null}">
-      <link href="../../css/home.css" rel="stylesheet">
+      <link href="../../css/style.css" rel="stylesheet">
  </c:if>
 
 <link rel="stylesheet"
@@ -91,21 +91,8 @@
         <!-- Container wrapper -->
     </nav>
     <!-- Navbar -->
-	
-<form class="d-flex" role="search" action="../../movie/moviesearch">
-		 <c:if test="${searchmov != null}">
-         		<input type="search" id="filter" name="movie" value="${searchmov}" class="shadow-lg mt-3 mb-4" placeholder="ค้นหาภาพยนตร์"/>
-         </c:if>
-			<c:if test="${searchmov == null}">
-				<input type="search" id="filter" name="movie"
-					class="shadow-lg mt-3 mb-4" placeholder="ค้นหาภาพยนตร์" />
-			</c:if>
 
-		</form>
-         <c:if test="${searchmov != null}">
-         		<p> ค้นหา '${searchmov}' ใน ภาพยนตร์ </p>
-         </c:if>
-
+	<h1  class="text-center my-5" style="font-family: 'Kodchasan';" >${catename.category}</h1>
 	
 
 	<div class="moviecard">
@@ -124,9 +111,7 @@
                     <div class="movie-name">
                         <p class="moviename-text">${mov.moviename}</p>
                     </div>
-                    <p class="movtype">
-                        <b>categories:</b> ${mov.category}
-                    </p>
+                 
                     
                 </a>
                 <div class="mov-edit-div">
@@ -141,10 +126,13 @@
 			
 		</div>
 	</div>
-
-	<a href="../../admin/addmovies" class="float"> <i
+	
+	<c:if test="${sessionScope.session != null}">		
+		<a href="../../admin/addmovies" class="float"> <i
 		class="fa fa-plus my-float"></i>
-	</a>
+		</a>
+	</c:if>
+	
 
 	<!-- <script>
         const moviePics = document.querySelectorAll('.mov-pic');

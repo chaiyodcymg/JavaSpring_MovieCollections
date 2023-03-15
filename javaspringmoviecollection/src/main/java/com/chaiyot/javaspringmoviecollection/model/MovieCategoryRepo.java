@@ -75,26 +75,22 @@ public class MovieCategoryRepo {
 
 		try {
             String sql = "SELECT GROUP_CONCAT(c.category) as category, m.moviename, "
-            		+ "m.image, m.description, m.release_year, a.actor_name, ma.actors_id, ma.role, a.image as actor_image FROM categories c "
-            		+ "JOIN movies_categories mc ON mc.category_id = c.category_id "
-            		+ "JOIN movies m ON mc.movies_id = m.movies_id "
-            		+ "JOIN movies_actors ma ON mc.movies_id = ma.movies_id "
-            		+ "JOIN actors a ON ma.actors_id = a.actors_id "
-            		+ "WHERE mc.movies_id = ?";
+            		+ "  m.image, m.description, m.release_year FROM categories c "
+            		+ "  JOIN movies_categories mc ON mc.category_id = c.category_id "
+            		+ "  JOIN movies m ON mc.movies_id = m.movies_id "
+            		+ "  WHERE mc.movies_id = ?";
 			Query query = entityManager.createNativeQuery(sql);
 			query.setParameter(1, id);
 			Object[] obj = (Object[]) query.getSingleResult();
 		
 			MovieDetail md = new MovieDetail();
-				md.setActors_id((int) obj[6]);
-				md.setActor_name((String) obj[5]);
-				md.setCategory((String) obj[0]);
-				md.setDescription((String) obj[3]);
-				md.setImage((String) obj[2]);
-				md.setMoviename((String) obj[1]);
-				md.setRelease_year((String) obj[4]);
-				md.setRole((String) obj[7]);
-				md.setActor_image((String) obj[8]);
+			
+			md.setCategory((String) obj[0]);
+			md.setMoviename((String) obj[1]);
+			md.setImage((String) obj[2]);
+			md.setDescription((String) obj[3]);
+			md.setRelease_year((String) obj[4]);
+		
 		
 //System.out.println("actname " + md.getActor_name());
 			

@@ -29,7 +29,7 @@
 	</div>
 	<div class="text-preview text-center">
 		<h1>${detail.moviename}</h1>
-		<p>categories: ${detail.category}</p>
+		<p>ประเภท: ${detail.category}</p>
 	</div>
 	<div class="container-md mt-5 p-5">
 		<div class="">
@@ -38,16 +38,17 @@
 		<h3>นักแสดง</h3>
 		<div class="mb-5 pb-4">
 			<ul class="actor-row overflow-x-scroll">
-				<li><a href="../actor/${detail.actors_id}" class="me-4 a-act">
-						<div class="img-actor">
-							<img
-								src="../${detail.actor_image}"
-								alt="">
-						</div>
-						<p class="mb-0"> ${detail.actor_name} </p>
-						<p class="mb-0">role: ${detail.role}</p>
-				</a></li>
+			
+			<c:forEach items="${Listactor}" var="actor">
 				
+				<li><a href="../actor/${actor.actors_id}" class="me-4 a-act">
+						<div class="img-actor">
+							<img src="../${actor.image}" alt="" >
+						</div>
+						<p class="mb-0">${actor.actorName} </p>
+						<p class="mb-0">ตัวละคร : ${actor.role}</p>
+				</a></li>
+				</c:forEach>
 			</ul>
 		</div>
 	</div>

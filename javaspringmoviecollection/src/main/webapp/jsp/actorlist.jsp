@@ -9,18 +9,15 @@
 
 <link href="../css/style.css" rel="stylesheet">
 
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Labrada">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Labrada">
 
-<!--  JavaScript -->
-
-
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-	crossorigin="anonymous">
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+    </script>
+    <script src="https://kit.fontawesome.com/7ef6297bb4.js" crossorigin="anonymous"></script>
 <!-- jQuery library -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -60,12 +57,13 @@
 								aria-expanded="false"> ประเภทหนัง </a>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<c:forEach items="${listcat}" var="cat">
-									<li><a class="dropdown-item" href="${cat.category_id}">${cat.category}</a></li>
+									<li><a class="dropdown-item" href="/movie/category/${cat.category_id}">${cat.category}</a></li>
 								</c:forEach>
 							</ul>
 						</div>
 					</li>
 				</ul>
+		
 				<!-- Left links -->
 				<div class="d-flex align-items-center">
 					<c:if test="${sessionScope.session != null}">
@@ -85,7 +83,7 @@
 	<!-- Navbar -->
 
 	<div class="container mt-5 mb-5">
-		<h1>นักแสดง</h1>
+		<h3>นักแสดง</h1>
 		<form class="d-flex" role="search" action="../movie/actorsearch">
 			<c:if test="${searchact != null}">
 				<input type="search" id="filter" name="actor" value="${searchact}"
@@ -105,22 +103,24 @@
 
 		<ul class="actor-list">
 			<c:forEach items="${actlist}" var="act">
-			<a href="../actor/${act.actors_id}">
+			
+	
 				<li class="actor-box">
+					<a href="../actor/${act.actors_id}">
 						<p class="actor-name">${act.actorName}</p> 
-						<img src="../${act.image}" alt="">
-				
-					<div class="btn-group">
+						<img src="../${act.image}" alt="" >
+					</a>
+					<div class="btn-group-ed">
 						<c:if test="${sessionScope.session != null}">
 							<a class="edit-actor btn btn-primary"
 								data-bs-toggle="modal"
-								data-bs-target="#ActorModal${act.actors_id}">แก้ไขนักแสดง</a>
+								data-bs-target="#ActorModal${act.actors_id}">แก้ไข</a>
 								
 							<a href="admin/deleteactors/${act.actors_id}" class="btn btn-danger delete-actor"> ลบ </a>
 						</c:if> 
 					</div>
 				</li>
-			</a>
+		
 
 				<!-- Modal -->
 				<div class="modal fade " id="ActorModal${act.actors_id}"
@@ -162,12 +162,13 @@
 
 
 										</select>
-										<div class="mb-3 mt-2">
-											<img alt="" src="${act.image}"
-												id="actpreview${act.actors_id}" width="200px"> <label
-												for="formFile" class="form-label">รูปภาพ</label> <input
-												class="form-control" type="file" id="formFile" name="img"
-												onchange="actorPreview${act.actors_id}(event);">
+										<div class="mb-3 mt-2 d-flex flex-column align-items-center">
+											<div class=" d-flex flex-column mb-3">
+											 	<label for="formFile" class="form-label text-center">รูปภาพ</label> 
+												<img alt="" src="../${act.image}" id="actpreview${act.actors_id}" width="200px">
+											</div>
+											
+											<input class="form-control " type="file" id="formFile" name="img" onchange="actorPreview${act.actors_id}(event);">
 										</div>
 
 
@@ -202,19 +203,16 @@
 
 		</ul>
 	</div>
+	
+	 
+	 
+	<c:if test="${sessionScope.session != null}">		
+		<a href="/admin/addmovies" class="float"> <i
+			class="fa fa-plus my-float"></i>
+		</a>
+	</c:if>
 
-	<a href="insert_movie.html" class="float"> <i
-		class="fa fa-plus my-float"></i>
-	</a>
 
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-		crossorigin="anonymous">
-		
-	</script>
-	<script src="https://kit.fontawesome.com/7ef6297bb4.js" crossorigin="anonymous"></script>
 
 
 
