@@ -93,7 +93,8 @@ public class MainController {
 	@GetMapping("/actor/{id}")
 	public String actormovie(HttpServletRequest request,Model model,HttpSession session,HttpServletResponse response,
 			@PathVariable Integer id) {
-
+		List<Categories> cat = catRepo.findAll();
+		model.addAttribute("listcat",cat);
 		
 		Actors act = actrepo.findById(id);
 		model.addAttribute("name",act.getActorName());
@@ -112,7 +113,7 @@ public class MainController {
 		model.addAttribute("image",	act.getImage());
 
 	      Date sqlDate = Date.valueOf(act.getBirthday());
-	        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM G yyyy", new Locale("th", "TH"));
+	        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM  yyyy", new Locale("en", "EN"));
 	        String thaiDate = formatter.format(sqlDate);
 		model.addAttribute("birthday",	thaiDate);
 		List<ShowMovieCategory> actmov = movactRepo.findActormovie(id);

@@ -20,10 +20,67 @@
 <!-- jQuery library -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	
-	
+
 </head>
 <body>
+<!-- Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg">
+		<!-- Container wrapper -->
+		<div class="container">
+			<!-- Navbar brand -->
+			<a href="/" class="navbar-brand me-5">
+				<h1 style="font-family: 'Kodchasan';">
+					<span>C</span>ollect<span>M</span>ovie
+				</h1>
+			</a>
+
+			<!-- Toggle button -->
+			<button class="navbar-toggler" type="button"
+				data-mdb-toggle="collapse" data-mdb-target="#navbarButtonsExample"
+				aria-controls="navbarButtonsExample" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<i class="fas fa-bars"></i>
+			</button>
+
+			<!-- Collapsible wrapper -->
+			<div class="collapse navbar-collapse" id="navbarButtonsExample">
+				<!-- Left links -->
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" href="/">หน้าแรก</a>
+					</li>
+					<li class="nav-item"><a class="nav-link active"
+						href="/actorlist">นักแสดง</a></li>
+					<li class="nav-item">
+						<div class="dropdown">
+							<a class="nav-link dropdown-toggle" role="button"
+								id="dropdownMenuLink" data-bs-toggle="dropdown"
+								aria-expanded="false"> ประเภทหนัง </a>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<c:forEach items="${listcat}" var="cat">
+									<li><a class="dropdown-item" href="/movie/category/${cat.category_id}">${cat.category}</a></li>
+								</c:forEach>
+							</ul>
+						</div>
+					</li>
+				</ul>
+		
+				<!-- Left links -->
+				<div class="d-flex align-items-center">
+					<c:if test="${sessionScope.session != null}">
+						<a href="admin/logout" class="signin-btn">Logout</a>
+					</c:if>
+
+					<c:if test="${sessionScope.session == null}">
+						<a href="admin/login" class="signin-btn">Login</a>
+					</c:if>
+				</div>
+
+			</div>
+			<!-- Collapsible wrapper -->
+		</div>
+		<!-- Container wrapper -->
+	</nav>
+	<!-- Navbar -->
 
 	<div class="container-md mt-5 p-5">
         <div class="text-center mt-3 mb-3 actor-preview">
@@ -39,7 +96,7 @@
                     <span> ${gender} </span>
                 </div>
              <div class="m-3">
-                    <span class="d-block fs-4">วันเดือนปีเกิด</span>
+                    <span class="d-block fs-4">วัน/เดือน/ปีเกิด</span>
                     <span> ${birthday} </span>
                 </div>
                
@@ -67,6 +124,7 @@
             </div>
         </div>
     </div>
+ 
 <script src="
 https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js
 "></script>
@@ -76,5 +134,6 @@ let eventBox = document.querySelector(".img-actor");
 VanillaTilt.init(eventBox);
 
 </script>
+
 </body>
 </html>

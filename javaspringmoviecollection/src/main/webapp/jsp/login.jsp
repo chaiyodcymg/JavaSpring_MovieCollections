@@ -16,11 +16,11 @@
                 <form action="/admin/login" method="POST">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">ชื่อผู้ใช้</label>
-                        <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" value="admin">
+                        <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" >
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">รหัสผ่าน</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter password" name="password"  value="@admin1234">
+                        <input type="password" class="form-control" id="password" placeholder="Enter password" name="password"  >
                     </div>
                     <button type="submit" class="submit-btn" style="width: 100%;">ยืนยัน</button>
                 </form>

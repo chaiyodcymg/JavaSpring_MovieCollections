@@ -20,11 +20,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Labrada">
 <!--  JavaScript -->
 
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-	integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-	crossorigin="anonymous"></script>
-<!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- JS & CSS library of MultiSelect plugin -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js">
@@ -35,70 +30,19 @@
 </head>
 
 <body>
+	
 	<c:if test="${sessionScope.msg != null}">
 		<div class="alert alert-danger" role="alert">
 			${msg}
 			<c:remove var="msg" />
 		</div>
 	</c:if>
-	<!-- Navbar -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg">
-		<!-- Container wrapper -->
-		<div class="container">
-			<!-- Navbar brand -->
-			<a href="/" class="navbar-brand me-5">
-				<h1 style="font-family: 'Kodchasan';">
-					<span>C</span>ollect<span>M</span>ovie
-				</h1>
-			</a>
+<a  onclick="history.back()"  style="position: absolute; left: 60px; top:40px; z-index: 20;cursor: pointer;">
+		<i class="fa-solid fa-circle-arrow-left fa-3x" style="color:green;"></i>
+	</a>
 
-			<!-- Toggle button -->
-			<button class="navbar-toggler" type="button"
-				data-mdb-toggle="collapse" data-mdb-target="#navbarButtonsExample"
-				aria-controls="navbarButtonsExample" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<i class="fas fa-bars"></i>
-			</button>
-
-			<!-- Collapsible wrapper -->
-			<div class="collapse navbar-collapse" id="navbarButtonsExample">
-				<!-- Left links -->
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link" href="/">หน้าแรก</a>
-					</li>
-					<li class="nav-item"><a class="nav-link "
-						href="/actorlist">นักแสดง</a></li>
-					<li class="nav-item">
-						<div class="dropdown">
-							<a class="nav-link dropdown-toggle" role="button"
-								id="dropdownMenuLink" data-bs-toggle="dropdown"
-								aria-expanded="false"> ประเภทหนัง </a>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<c:forEach items="${catlist}" var="cat">
-									<li><a class="dropdown-item" href="/movie/category/${cat.category_id}">${cat.category}</a></li>
-								</c:forEach>
-							</ul>
-						</div>
-					</li>
-				</ul>
-				<!-- Left links -->
-				<div class="d-flex align-items-center">
-					<c:if test="${sessionScope.session != null}">
-						<a href="admin/logout" class="signin-btn">Logout</a>
-					</c:if>
-
-					<c:if test="${sessionScope.session == null}">
-						<a href="admin/login" class="signin-btn">Login</a>
-					</c:if>
-				</div>
-
-			</div>
-			<!-- Collapsible wrapper -->
-		</div>
-		<!-- Container wrapper -->
-	</nav>
-	<!-- Navbar -->
-	<div class="container-md mt-3 insert_form">
+	<div class="container-md mt-5 insert_form">
+	
 		<!-- Button trigger modal -->
 		<button type="button" class="btn add-actor-btn" data-bs-toggle="modal"
 			data-bs-target="#exampleModal">เพิ่มนักแสดง</button>
@@ -230,10 +174,9 @@
 	<script src="https://kit.fontawesome.com/7ef6297bb4.js"
 		crossorigin="anonymous"></script>
 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-		integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
-		crossorigin="anonymous">
-    </script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+	integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+	crossorigin="anonymous"></script>
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.multiselect/1.13/jquery.multiselect.js"></script> -->
 	<script>
