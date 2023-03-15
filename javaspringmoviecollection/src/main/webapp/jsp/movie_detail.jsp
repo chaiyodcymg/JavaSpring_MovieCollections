@@ -22,7 +22,9 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-
+	<a  onclick="history.back()"  style="position: absolute; left: 60px; top: 60px; z-index: 20;cursor: pointer;">
+		<i class="fa-solid fa-circle-arrow-left fa-3x" style="color:white;"></i>
+	</a>
 	<div class=" mb-3 text-center img-movie-preview shadow-lg">
 		<img src="../${detail.image}" alt="">
 		<div class="overlay"></div>
