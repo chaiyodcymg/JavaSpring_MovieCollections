@@ -1,5 +1,4 @@
 ## **Mini Project Collect Movie Using ***Java Spring MVC*** (for education)**
-<hr>
 <br>
 
 [![image ](./image_readme/1.png)](https://github.com/chaiyodcymg/JavaSpring_MovieCollections)
