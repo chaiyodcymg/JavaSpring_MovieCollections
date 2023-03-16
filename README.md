@@ -41,12 +41,12 @@
 <hr>
 
 <a href="https://github.com/hoimalangpoo">
-<img src="https://avatars.githubusercontent.com/u/99596478?size=20" width="30" height="30" style="border-radius: 50px;" class="zoom"/>
+<img src="https://avatars.githubusercontent.com/u/99596478?size=20" width="30" height="30" style="border-radius: 50%;"/>
 </a>
 <a href="https://github.com/orninpp">
-<img src="https://avatars.githubusercontent.com/u/101373657?v=4" width="30" height="30" style="border-radius: 50px;"/>
+<img src="https://avatars.githubusercontent.com/u/101373657?v=4" width="30" height="30" style="border-radius: 50%;"/>
 </a>
 <a href="https://github.com/Waiwitz">
-<img src="https://avatars.githubusercontent.com/u/99977023?v=4" width="30" height="30" style="border-radius: 50px;"/>
+<img src="https://avatars.githubusercontent.com/u/99977023?v=4" width="30" height="30" style="border-radius: 50%;"/>
 </a>
 
