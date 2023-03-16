@@ -116,7 +116,7 @@
 								data-bs-toggle="modal"
 								data-bs-target="#ActorModal${act.actors_id}">แก้ไข</a>
 								
-							<a href="admin/deleteactors/${act.actors_id}" class="btn btn-danger delete-actor"> ลบ </a>
+							<a href="../admin/deleteactors/${act.actors_id}" class="btn btn-danger delete-actor"> ลบ </a>
 						</c:if> 
 					</div>
 				</li>

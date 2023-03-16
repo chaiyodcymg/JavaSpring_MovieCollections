@@ -151,8 +151,8 @@
                 </a>
                 <div class="mov-edit-div">
 	                <c:if test="${sessionScope.session != null}">
-						<a class="mov-edit btn btn-primary" href="admin/editmovies/${mov.movies_id}">แก้ไข</a>
-	                    <a class="mov-edit btn btn-danger" href="admin/deletemovies/${mov.movies_id}">ลบ</a>
+						<a class="mov-edit btn btn-primary" href="../admin/editmovies/${mov.movies_id}">แก้ไข</a>
+	                    <a class="mov-edit btn btn-danger" href="../admin/deletemovies/${mov.movies_id}">ลบ</a>
 					</c:if>
                 </div>
             </div>

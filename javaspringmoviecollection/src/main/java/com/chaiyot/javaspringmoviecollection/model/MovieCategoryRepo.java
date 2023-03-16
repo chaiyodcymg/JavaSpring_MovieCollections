@@ -198,7 +198,7 @@ public class MovieCategoryRepo {
             String sql = "SELECT m.movies_id, m.moviename, m.posterimage, GROUP_CONCAT(c.category) as category FROM categories c "
             		+ "	JOIN movies_categories mc ON mc.category_id = c.category_id "
             		+ " JOIN movies m ON mc.movies_id = m.movies_id"
-            		+ "	WHERE m.moviename LIKE '%" + movie + "%'"
+            		+ "	WHERE m.moviename LIKE '%" + movie + "%' AND m.deleted = 0"
             		+ " GROUP BY m.moviename;";
 			Query query = entityManager.createNativeQuery(sql);
 

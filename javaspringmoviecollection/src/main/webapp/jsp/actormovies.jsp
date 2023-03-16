@@ -67,11 +67,11 @@
 				<!-- Left links -->
 				<div class="d-flex align-items-center">
 					<c:if test="${sessionScope.session != null}">
-						<a href="admin/logout" class="signin-btn">Logout</a>
+						<a href="../admin/logout" class="signin-btn">Logout</a>
 					</c:if>
 
 					<c:if test="${sessionScope.session == null}">
-						<a href="admin/login" class="signin-btn">Login</a>
+						<a href="../admin/login" class="signin-btn">Login</a>
 					</c:if>
 				</div>
 
@@ -84,7 +84,7 @@
 
 	<div class="container-md mt-5 p-5">
         <div class="text-center mt-3 mb-3 actor-preview">
-        <img src="../${image}" style="width:250px;height:350px" class="img-actor"/>
+        <img src="../${image}" style="width:250px;height:350px" class="img-actor mb-3"/>
             <h1>${name}</h1>
             <div class="actor-info">
                 <div class="m-3">
@@ -99,7 +99,7 @@
                     <span class="d-block fs-4">วัน/เดือน/ปีเกิด</span>
                     <span> ${birthday} </span>
                 </div>
-               
+           
             </div>
         </div>
   		<div class="my-3 text-center">

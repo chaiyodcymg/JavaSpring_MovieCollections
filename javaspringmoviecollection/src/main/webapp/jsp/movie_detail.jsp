@@ -31,6 +31,7 @@
 	</div>
 	<div class="text-preview text-center">
 		<h1>${detail.moviename}</h1>
+		
 		<p>ประเภท: ${detail.category}</p>
 	</div>
 	<div class="container-md mt-5 p-5">

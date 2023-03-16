@@ -65,7 +65,7 @@ public class MoviesActorsRepo {
 		try {
 
 			Query query = entityManager.createNativeQuery(
-					"SELECT ma.id, ma.role, a.actor_name, a.actors_id, ma.movies_id, a.image FROM movies_actors ma JOIN actors a ON ma.actors_id = a.actors_id WHERE ma.movies_id = ?");
+					"SELECT ma.id, ma.role, a.actor_name, a.actors_id, ma.movies_id, a.image FROM movies_actors ma JOIN actors a ON ma.actors_id = a.actors_id WHERE ma.movies_id = ? AND a.deleted = 0");
 			query.setParameter(1, id);
 			List<Object[]> list = query.getResultList();
 			List<RoleActor> ralist = new ArrayList<RoleActor>();
@@ -94,7 +94,7 @@ public class MoviesActorsRepo {
             		+ "   JOIN movies m ON ma.movies_id = m.movies_id "
             		+ "   JOIN movies_categories mc ON m.movies_id = mc.movies_id "
             		+ "   JOIN categories c ON c.category_id = mc.category_id "
-            		+ "   WHERE ma.actors_id = ? "
+            		+ "   WHERE ma.actors_id = ?  AND m.deleted = 0"
             		+ "   GROUP BY m.movies_id;";
 			Query query = entityManager.createNativeQuery(sql);
 			query.setParameter(1, id);
@@ -150,7 +150,7 @@ public class MoviesActorsRepo {
 		try {
             String sql = "SELECT a.actors_id, a.actor_name, a.image, a.birthday, a.gender, a.deleted FROM actors a "
             		+ "  JOIN movies_actors ma ON ma.actors_id = a.actors_id "
-            		+ "  WHERE ma.role LIKE '%" + actor + "%' OR a.actor_name LIKE '%" + actor + "%' "
+            		+ "  WHERE ma.role LIKE '%" + actor + "%' OR a.actor_name LIKE '%" + actor + "%' AND a.deleted = 0"
             		+ "  GROUP BY a.actor_name";
 			Query query = entityManager.createNativeQuery(sql);
 
